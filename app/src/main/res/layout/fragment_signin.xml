@@ -49,7 +49,7 @@
       app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <com.google.android.material.textfield.TextInputLayout
-      android:id="@+id/emailTextField"
+      android:id="@+id/email_text_field"
       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-      android:id="@+id/passwordTextField"
+      android:id="@+id/password_text_field"
       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
       android:hint="@string/login_password_hint"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/emailTextField">
+      app:layout_constraintTop_toBottomOf="@+id/email_text_field">
 
       <com.google.android.material.textfield.TextInputEditText
         android:layout_width="match_parent"
@@ -81,17 +81,17 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-      android:id="@+id/signinButton"
+      android:id="@+id/signin_button"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="20dp"
       android:text="@string/login_signin_button_label"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/passwordTextField" />
+      app:layout_constraintTop_toBottomOf="@id/password_text_field" />
 
     <TextView
-      android:id="@+id/alternativeTextView"
+      android:id="@+id/alternative_text_view"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="16dp"
@@ -99,20 +99,20 @@
       android:text="@string/login_alternative_text"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/signinButton" />
+      app:layout_constraintTop_toBottomOf="@id/signin_button" />
 
     <Button
-      android:id="@+id/signinAnonymouslyButton"
+      android:id="@+id/signin_anonymously_button"
       style="@style/Widget.MaterialComponents.Button.TextButton"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="@string/login_signin_anonymously_button_label"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/alternativeTextView" />
+      app:layout_constraintTop_toBottomOf="@id/alternative_text_view" />
 
     <Button
-      android:id="@+id/signupButton"
+      android:id="@+id/signup_button"
       style="@style/Widget.MaterialComponents.Button.TextButton"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -122,7 +122,7 @@
       android:textColor="#464646"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/signinAnonymouslyButton" />
+      app:layout_constraintTop_toBottomOf="@id/signin_anonymously_button" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
