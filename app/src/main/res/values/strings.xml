@@ -7,7 +7,9 @@
   <string name="login_signin_button_label">Entrar</string>
   <string name="login_alternative_text">ou</string>
   <string name="login_signin_anonymously_button_label">Entrar de forma anônima</string>
-  <string name="login_go_to_signup">Já possui uma conta? Faça o login aqui</string>
   <string name="login_password_hint">Senha</string>
   <string name="login_password_confirmation_hint">Confirmação de senha</string>
+
+  <string name="signin_go_to_signup">Não possui uma conta? Cadastre-se aqui</string>
+  <string name="signup_go_to_signin">Já possui uma conta? Faça o login aqui</string>
 </resources>
