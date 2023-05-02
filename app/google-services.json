@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "869975547566",
+    "project_id": "carry-cc443",
+    "storage_bucket": "carry-cc443.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:869975547566:android:0bfe4b9937d1aa9c2fd73f",
+        "android_client_info": {
+          "package_name": "com.viniciusrodriguesaro.carry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "869975547566-edd2857bpnoj1532dq496m10icduj6gi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.viniciusrodriguesaro.carry",
+            "certificate_hash": "e63cf14ffcbb9c4906726915bbe85b7878692724"
+          }
+        },
+        {
+          "client_id": "869975547566-emkcdm6nr7uldkhm6grn26cmk7g5g1pm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAF2JNT1zVfxRA-aK41jmghCR_SUCP0vQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "869975547566-emkcdm6nr7uldkhm6grn26cmk7g5g1pm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

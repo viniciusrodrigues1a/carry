@@ -10,7 +10,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingHorizontal="26dp"
-    android:paddingVertical="14dp">
+    android:paddingVertical="14dp"
+    android:id="@+id/signup_layout"
+    >
 
     <ImageView
       android:id="@+id/logo"
@@ -60,6 +62,7 @@
       app:layout_constraintTop_toBottomOf="@+id/subtitle">
 
       <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/email_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -76,6 +79,7 @@
       app:layout_constraintTop_toBottomOf="@+id/email_text_field">
 
       <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/password_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
