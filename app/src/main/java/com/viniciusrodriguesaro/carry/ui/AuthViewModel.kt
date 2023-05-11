@@ -18,12 +18,12 @@ class AuthViewModel : ViewModel() {
         auth = Firebase.auth
     }
 
-    fun signUpWithEmailAndPassword(email: String, password: String) {
+    fun signUpWithEmailAndPassword(email: String, password: String, onSuccess: () -> Unit) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    val user = auth.currentUser
                     Log.d("AUTH", "Created account")
+                    onSuccess();
                 } else {
                     errorMessage.value = task.exception?.message ?: ""
                 }

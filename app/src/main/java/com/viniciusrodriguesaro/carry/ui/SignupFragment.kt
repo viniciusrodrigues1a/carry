@@ -1,7 +1,6 @@
 package com.viniciusrodriguesaro.carry.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -56,6 +55,11 @@ class SignupFragment : Fragment() {
     private fun handleSignin() {
         val email = binding.emailEditText.text.toString()
         val pass = binding.passwordEditText.text.toString()
-        authViewModel.signUpWithEmailAndPassword(email, pass)
+        authViewModel.signUpWithEmailAndPassword(email, pass) {
+            val navController = findNavController()
+            val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
+            navGraph.setStartDestination(R.id.shoppingItemListFragment)
+            navController.graph = navGraph
+        }
     }
 }
