@@ -56,10 +56,21 @@ class SignupFragment : Fragment() {
         val email = binding.emailEditText.text.toString()
         val pass = binding.passwordEditText.text.toString()
         authViewModel.signUpWithEmailAndPassword(email, pass) {
-            val navController = findNavController()
-            val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
-            navGraph.setStartDestination(R.id.shoppingItemListFragment)
-            navController.graph = navGraph
+            val snack = Snackbar.make(
+                binding.signupLayout,
+                R.string.signup_success_message,
+                Snackbar.LENGTH_SHORT
+            )
+
+            snack.addCallback(object : Snackbar.Callback() {
+                override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                    super.onDismissed(transientBottomBar, event)
+
+                    findNavController().navigate(R.id.action_signupFragment_to_signinFragment)
+                }
+            })
+
+            snack.show()
         }
     }
 }
