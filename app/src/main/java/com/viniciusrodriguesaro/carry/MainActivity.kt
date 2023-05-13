@@ -29,11 +29,18 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(binding.navHostMainContent.id) as NavHostFragment
 
-        val currentUser = authViewModel.auth.currentUser
-        if (currentUser != null) {
-            navHostFragment.navController.graph.setStartDestination(R.id.shoppingItemListFragment)
-        } else {
-            navHostFragment.navController.graph.setStartDestination(R.id.signinFragment)
+        authViewModel.currentUser.observe(this) {
+            if (it != null) {
+                val newNavGraph =
+                    navHostFragment.navController.navInflater.inflate(R.navigation.nav_graph)
+                newNavGraph.setStartDestination(R.id.shoppingItemListFragment)
+                navHostFragment.navController.graph = newNavGraph
+            } else {
+                val newNavGraph =
+                    navHostFragment.navController.navInflater.inflate(R.navigation.nav_graph)
+                newNavGraph.setStartDestination(R.id.signinFragment)
+                navHostFragment.navController.graph = newNavGraph
+            }
         }
     }
 
@@ -43,7 +50,12 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(binding.navHostMainContent.id) as NavHostFragment
         val navController = navHostFragment.navController
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.signinFragment,
+                R.id.shoppingItemListFragment
+            )
+        )
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
     }
 }
