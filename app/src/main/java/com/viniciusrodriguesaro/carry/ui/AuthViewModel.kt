@@ -32,7 +32,8 @@ class AuthViewModel : ViewModel() {
                     Log.d("AUTH", "Created account")
                     onSuccess();
                 } else {
-                    errorMessage.value = task.exception?.message ?: "Não foi possível fazer o cadastro"
+                    errorMessage.value =
+                        task.exception?.message ?: "Não foi possível fazer o cadastro"
                 }
             }
     }
@@ -48,7 +49,14 @@ class AuthViewModel : ViewModel() {
             }
     }
 
-    fun signOut() {
-        auth.signOut()
+    fun signInAnonymously() {
+        auth.signInAnonymously().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Log.d("AUTH", "Logged in anonymously")
+            } else {
+                errorMessage.value =
+                    task.exception?.message ?: "Não foi possível fazer o login anônimo"
+            }
+        }
     }
 }

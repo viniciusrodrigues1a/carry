@@ -33,6 +33,7 @@ class SigninFragment : Fragment() {
 
         binding.signupButton.setOnClickListener { _ -> findNavController().navigate(R.id.action_signinFragment_to_signupFragment) }
         binding.signinButton.setOnClickListener { _ -> handleSignin() }
+        binding.signinAnonymouslyButton.setOnClickListener { _ -> authViewModel.signInAnonymously() }
     }
 
     fun handleSignin() {
