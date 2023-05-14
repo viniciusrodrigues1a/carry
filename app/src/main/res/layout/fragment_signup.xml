@@ -96,6 +96,7 @@
       app:layout_constraintTop_toBottomOf="@+id/password_text_field">
 
       <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/password_confirmation_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword" />
@@ -106,6 +107,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="20dp"
+      android:enabled="false"
       android:text="@string/auth_signup_button_label"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"

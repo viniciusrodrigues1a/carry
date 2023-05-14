@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -39,8 +40,10 @@ class SignupFragment : Fragment() {
         binding.signinButton.setOnClickListener { _ -> handleSignin() }
         binding.signupButton.setOnClickListener { _ -> findNavController().navigate(R.id.action_signupFragment_to_signinFragment) }
         binding.signinAnonymouslyButton.setOnClickListener { _ -> authViewModel.signInAnonymously() }
+        binding.emailEditText.addTextChangedListener { _ -> updateButtonEnabledAttribute()  }
+        binding.passwordEditText.addTextChangedListener { _ -> updateButtonEnabledAttribute()  }
+        binding.passwordConfirmationEditText.addTextChangedListener { _ -> updateButtonEnabledAttribute()  }
     }
-
 
     private fun addAuthErrorListener() {
         observeErrorCode() { mapErrorCodeToLocalizedString(it) }
@@ -71,8 +74,9 @@ class SignupFragment : Fragment() {
     }
 
     private fun handleSignin() {
-        val email = binding.emailEditText.text.toString()
-        val pass = binding.passwordEditText.text.toString()
+        val email = binding.emailEditText.text?.toString() ?: ""
+        val pass = binding.passwordEditText.text?.toString() ?: ""
+
         authViewModel.signUpWithEmailAndPassword(email, pass) {
             val snack = Snackbar.make(
                 binding.signupLayout,
@@ -90,5 +94,13 @@ class SignupFragment : Fragment() {
 
             snack.show()
         }
+    }
+
+    private fun updateButtonEnabledAttribute() {
+        val email = binding.emailEditText.text?.toString()
+        val pass = binding.passwordEditText.text?.toString()
+        val passConfirmation = binding.passwordConfirmationEditText.text?.toString()
+
+        binding.signinButton.isEnabled = !email.isNullOrEmpty() && !pass.isNullOrEmpty() && !passConfirmation.isNullOrEmpty()
     }
 }
