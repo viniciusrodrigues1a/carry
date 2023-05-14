@@ -40,9 +40,9 @@ class SignupFragment : Fragment() {
         binding.signupButton.setOnClickListener { _ -> handleSignup() }
         binding.signinButton.setOnClickListener { _ -> findNavController().navigate(R.id.action_signupFragment_to_signinFragment) }
         binding.signinAnonymouslyButton.setOnClickListener { _ -> authViewModel.signInAnonymously() }
-        binding.emailEditText.addTextChangedListener { _ -> updateButtonEnabledAttribute()  }
-        binding.passwordEditText.addTextChangedListener { _ -> updateButtonEnabledAttribute()  }
-        binding.passwordConfirmationEditText.addTextChangedListener { _ -> updateButtonEnabledAttribute()  }
+        binding.emailEditText.addTextChangedListener { _ -> updateButtonEnabledAttribute() }
+        binding.passwordEditText.addTextChangedListener { _ -> updateButtonEnabledAttribute() }
+        binding.passwordConfirmationEditText.addTextChangedListener { _ -> updateButtonEnabledAttribute() }
     }
 
     private fun addAuthErrorListener() {
@@ -101,6 +101,7 @@ class SignupFragment : Fragment() {
         val pass = binding.passwordEditText.text?.toString()
         val passConfirmation = binding.passwordConfirmationEditText.text?.toString()
 
-        binding.signupButton.isEnabled = !email.isNullOrEmpty() && !pass.isNullOrEmpty() && !passConfirmation.isNullOrEmpty()
+        binding.signupButton.isEnabled =
+            !email.isNullOrEmpty() && !pass.isNullOrEmpty() && !passConfirmation.isNullOrEmpty()
     }
 }

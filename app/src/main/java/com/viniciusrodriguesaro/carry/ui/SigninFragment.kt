@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -38,6 +39,8 @@ class SigninFragment : Fragment() {
         binding.signupButton.setOnClickListener { _ -> findNavController().navigate(R.id.action_signinFragment_to_signupFragment) }
         binding.signinButton.setOnClickListener { _ -> handleSignin() }
         binding.signinAnonymouslyButton.setOnClickListener { _ -> authViewModel.signInAnonymously() }
+        binding.emailEditText.addTextChangedListener { _ -> updateButtonEnabledAttribute() }
+        binding.passwordEditText.addTextChangedListener { _ -> updateButtonEnabledAttribute() }
     }
 
     private fun addAuthErrorListener() {
@@ -72,5 +75,12 @@ class SigninFragment : Fragment() {
         val email = binding.emailEditText.text.toString()
         val password = binding.passwordEditText.text.toString()
         authViewModel.signInWithEmailAndPassword(email, password)
+    }
+
+    private fun updateButtonEnabledAttribute() {
+        val email = binding.emailEditText.text?.toString()
+        val pass = binding.passwordEditText.text?.toString()
+
+        binding.signinButton.isEnabled = !email.isNullOrEmpty() && !pass.isNullOrEmpty()
     }
 }
