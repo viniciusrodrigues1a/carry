@@ -33,7 +33,7 @@ class AuthViewModel : ViewModel() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d("AUTH", "Created account")
+                    Log.d(TAG, "Created account")
                     onSuccess();
                 } else {
                     handleFailedTask(task)
@@ -45,7 +45,7 @@ class AuthViewModel : ViewModel() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d("AUTH", "Logged in")
+                    Log.d(TAG, "Logged in")
                 } else {
                     handleFailedTask(task)
                 }
@@ -55,7 +55,7 @@ class AuthViewModel : ViewModel() {
     fun signInAnonymously() {
         auth.signInAnonymously().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Log.d("AUTH", "Logged in anonymously")
+                Log.d(TAG, "Logged in anonymously")
             } else {
                 handleFailedTask(task)
             }
@@ -70,7 +70,11 @@ class AuthViewModel : ViewModel() {
             treatedCode = "ERROR_NETWORK_REQUEST_FAILED"
         }
 
-        Log.d("AUTH", "Error code: $treatedCode")
+        Log.d(TAG, "Error code: $treatedCode")
         errorCode.value = treatedCode
+    }
+
+    companion object {
+        val TAG = "AUTH_VIEW_MODEL"
     }
 }
