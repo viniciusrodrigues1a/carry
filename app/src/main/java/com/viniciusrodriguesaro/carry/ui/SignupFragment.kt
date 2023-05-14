@@ -22,7 +22,7 @@ class SignupFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        observeErrorMessage()
+        addAuthErrorListener()
     }
 
     override fun onCreateView(
@@ -41,16 +41,33 @@ class SignupFragment : Fragment() {
         binding.signinAnonymouslyButton.setOnClickListener { _ -> authViewModel.signInAnonymously() }
     }
 
-    private fun observeErrorMessage() {
-        val errorMessageObserver = Observer<String> { newMessage ->
+
+    private fun addAuthErrorListener() {
+        observeErrorCode() { mapErrorCodeToLocalizedString(it) }
+    }
+
+    private fun observeErrorCode(translateErrorCode: (errorCode: String) -> Int) {
+        val errorCodeObserver = Observer<String> { code ->
             val snack = Snackbar.make(
                 binding.signupLayout,
-                newMessage,
+                translateErrorCode(code),
                 Snackbar.LENGTH_SHORT
             )
             snack.show()
         }
-        authViewModel.errorMessage.observe(this, errorMessageObserver)
+        authViewModel.errorCode.observe(this, errorCodeObserver)
+    }
+
+    private fun mapErrorCodeToLocalizedString(errorCode: String?): Int {
+        val message = when (errorCode) {
+            "ERROR_WEAK_PASSWORD" -> R.string.signup_weak_password_error
+            "ERROR_INVALID_EMAIL" -> R.string.signup_invalid_email_error
+            "ERROR_EMAIL_ALREADY_IN_USE" -> R.string.signup_email_already_in_use_error
+            "ERROR_TOO_MANY_REQUESTS" -> R.string.login_account_blocked_error
+            "ERROR_NETWORK_REQUEST_FAILED" -> R.string.login_network_request_failed_error
+            else -> R.string.signup_generic_error
+        }
+        return message
     }
 
     private fun handleSignin() {

@@ -7,6 +7,7 @@
   tools:context=".ui.SigninFragment">
 
   <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/signin_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingHorizontal="26dp"

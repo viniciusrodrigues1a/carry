@@ -3,7 +3,11 @@ package com.viniciusrodriguesaro.carry.ui
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.tasks.Task
+import com.google.firebase.FirebaseNetworkException
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -11,7 +15,7 @@ import com.google.firebase.ktx.Firebase
 class AuthViewModel : ViewModel() {
     private lateinit var auth: FirebaseAuth
 
-    val errorMessage: MutableLiveData<String> by lazy {
+    val errorCode: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
     val currentUser: MutableLiveData<FirebaseUser?> by lazy {
@@ -32,8 +36,7 @@ class AuthViewModel : ViewModel() {
                     Log.d("AUTH", "Created account")
                     onSuccess();
                 } else {
-                    errorMessage.value =
-                        task.exception?.message ?: "Não foi possível fazer o cadastro"
+                    handleFailedTask(task)
                 }
             }
     }
@@ -44,7 +47,7 @@ class AuthViewModel : ViewModel() {
                 if (task.isSuccessful) {
                     Log.d("AUTH", "Logged in")
                 } else {
-                    errorMessage.value = task.exception?.message ?: "Não foi possível fazer o login"
+                    handleFailedTask(task)
                 }
             }
     }
@@ -54,9 +57,20 @@ class AuthViewModel : ViewModel() {
             if (task.isSuccessful) {
                 Log.d("AUTH", "Logged in anonymously")
             } else {
-                errorMessage.value =
-                    task.exception?.message ?: "Não foi possível fazer o login anônimo"
+                handleFailedTask(task)
             }
         }
+    }
+
+    private fun handleFailedTask(task: Task<AuthResult>) {
+        val code = (task.exception as? FirebaseAuthException)?.errorCode.toString()
+        var treatedCode = code
+
+        if (task.exception is FirebaseNetworkException) {
+            treatedCode = "ERROR_NETWORK_REQUEST_FAILED"
+        }
+
+        Log.d("AUTH", "Error code: $treatedCode")
+        errorCode.value = treatedCode
     }
 }
