@@ -14,7 +14,6 @@
 
   <string name="signin_go_to_signup">Não possui uma conta? Cadastre-se aqui</string>
   <string name="signup_go_to_signin">Já possui uma conta? Faça o login aqui</string>
-  <string name="signup_success_message">Cadastro feito com sucesso!</string>
 
   // Auth errors
   <string name="auth_network_request_failed_error">Erro ao fazer login. Cheque sua conexão.</string>
@@ -27,4 +26,5 @@
   <string name="signup_email_already_in_use_error">Este e-mail já está em uso.</string>
   <string name="signup_weak_password_error">Senha muito fraca. Tente uma senha diferente.</string>
   <string name="signup_generic_error">Erro ao fazer cadastro.</string>
+  <string name="signup_passwords_dont_match_error">Senhas não coincidem.</string>
 </resources>

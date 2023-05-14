@@ -29,12 +29,16 @@ class AuthViewModel : ViewModel() {
         }
     }
 
-    fun signUpWithEmailAndPassword(email: String, password: String, onSuccess: () -> Unit) {
+    fun signUpWithEmailAndPassword(email: String, password: String, passwordConfirmation: String) {
+        if (password != passwordConfirmation) {
+            errorCode.value = "PASSWORDS_DO_NOT_MATCH"
+            return
+        }
+
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d(TAG, "Created account")
-                    onSuccess();
                 } else {
                     handleFailedTask(task)
                 }

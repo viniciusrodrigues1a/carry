@@ -68,6 +68,7 @@ class SignupFragment : Fragment() {
             "ERROR_EMAIL_ALREADY_IN_USE" -> R.string.signup_email_already_in_use_error
             "ERROR_TOO_MANY_REQUESTS" -> R.string.auth_account_blocked_error
             "ERROR_NETWORK_REQUEST_FAILED" -> R.string.auth_network_request_failed_error
+            "PASSWORDS_DO_NOT_MATCH" -> R.string.signup_passwords_dont_match_error
             else -> R.string.signup_generic_error
         }
         return message
@@ -76,24 +77,9 @@ class SignupFragment : Fragment() {
     private fun handleSignup() {
         val email = binding.emailEditText.text?.toString() ?: ""
         val pass = binding.passwordEditText.text?.toString() ?: ""
+        val passConfirmation = binding.passwordConfirmationEditText.text?.toString() ?: ""
 
-        authViewModel.signUpWithEmailAndPassword(email, pass) {
-            val snack = Snackbar.make(
-                binding.signupLayout,
-                R.string.signup_success_message,
-                Snackbar.LENGTH_SHORT
-            )
-
-            snack.addCallback(object : Snackbar.Callback() {
-                override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-                    super.onDismissed(transientBottomBar, event)
-
-                    findNavController().navigate(R.id.action_signupFragment_to_signinFragment)
-                }
-            })
-
-            snack.show()
-        }
+        authViewModel.signUpWithEmailAndPassword(email, pass, passConfirmation)
     }
 
     private fun updateButtonEnabledAttribute() {
