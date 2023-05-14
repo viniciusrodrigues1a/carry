@@ -37,8 +37,8 @@ class SignupFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.signinButton.setOnClickListener { _ -> handleSignin() }
-        binding.signupButton.setOnClickListener { _ -> findNavController().navigate(R.id.action_signupFragment_to_signinFragment) }
+        binding.signupButton.setOnClickListener { _ -> handleSignup() }
+        binding.signinButton.setOnClickListener { _ -> findNavController().navigate(R.id.action_signupFragment_to_signinFragment) }
         binding.signinAnonymouslyButton.setOnClickListener { _ -> authViewModel.signInAnonymously() }
         binding.emailEditText.addTextChangedListener { _ -> updateButtonEnabledAttribute()  }
         binding.passwordEditText.addTextChangedListener { _ -> updateButtonEnabledAttribute()  }
@@ -73,7 +73,7 @@ class SignupFragment : Fragment() {
         return message
     }
 
-    private fun handleSignin() {
+    private fun handleSignup() {
         val email = binding.emailEditText.text?.toString() ?: ""
         val pass = binding.passwordEditText.text?.toString() ?: ""
 
@@ -101,6 +101,6 @@ class SignupFragment : Fragment() {
         val pass = binding.passwordEditText.text?.toString()
         val passConfirmation = binding.passwordConfirmationEditText.text?.toString()
 
-        binding.signinButton.isEnabled = !email.isNullOrEmpty() && !pass.isNullOrEmpty() && !passConfirmation.isNullOrEmpty()
+        binding.signupButton.isEnabled = !email.isNullOrEmpty() && !pass.isNullOrEmpty() && !passConfirmation.isNullOrEmpty()
     }
 }
