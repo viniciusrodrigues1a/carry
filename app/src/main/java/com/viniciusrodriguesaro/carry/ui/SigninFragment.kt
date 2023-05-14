@@ -61,8 +61,8 @@ class SigninFragment : Fragment() {
             "ERROR_INVALID_EMAIL" -> R.string.signin_wrong_credentials_error
             "ERROR_WRONG_PASSWORD" -> R.string.signin_wrong_credentials_error
             "ERROR_USER_NOT_FOUND" -> R.string.signin_wrong_credentials_error
-            "ERROR_TOO_MANY_REQUESTS" -> R.string.login_account_blocked_error
-            "ERROR_NETWORK_REQUEST_FAILED" -> R.string.login_network_request_failed_error
+            "ERROR_TOO_MANY_REQUESTS" -> R.string.auth_account_blocked_error
+            "ERROR_NETWORK_REQUEST_FAILED" -> R.string.auth_network_request_failed_error
             else -> R.string.signin_generic_error
         }
         return message

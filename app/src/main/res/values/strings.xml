@@ -3,22 +3,22 @@
   <string name="logo_content_description">App\'s logo</string>
 
   // Auth strings
-  <string name="login_email_hint">E-mail</string>
-  <string name="login_subtitle">Sua lista de compras digital!</string>
-  <string name="login_signin_button_label">Entrar</string>
-  <string name="login_signup_button_label">Cadastrar</string>
-  <string name="login_alternative_text">ou</string>
-  <string name="login_signin_anonymously_button_label">Entrar de forma anônima</string>
-  <string name="login_password_hint">Senha</string>
-  <string name="login_password_confirmation_hint">Confirmação de senha</string>
+  <string name="auth_email_hint">E-mail</string>
+  <string name="auth_subtitle">Sua lista de compras digital!</string>
+  <string name="auth_signin_button_label">Entrar</string>
+  <string name="auth_signup_button_label">Cadastrar</string>
+  <string name="auth_alternative_text">ou</string>
+  <string name="auth_signin_anonymously_button_label">Entrar de forma anônima</string>
+  <string name="auth_password_hint">Senha</string>
+  <string name="auth_password_confirmation_hint">Confirmação de senha</string>
 
   <string name="signin_go_to_signup">Não possui uma conta? Cadastre-se aqui</string>
   <string name="signup_go_to_signin">Já possui uma conta? Faça o login aqui</string>
   <string name="signup_success_message">Cadastro feito com sucesso!</string>
 
   // Auth errors
-  <string name="login_network_request_failed_error">Erro ao fazer login. Cheque sua conexão.</string>
-  <string name="login_account_blocked_error">Serviço temporariamente indisponível. Tente novamente mais tarde.</string>
+  <string name="auth_network_request_failed_error">Erro ao fazer login. Cheque sua conexão.</string>
+  <string name="auth_account_blocked_error">Serviço temporariamente indisponível. Tente novamente mais tarde.</string>
 
   <string name="signin_wrong_credentials_error">E-mail ou senha inválidos.</string>
   <string name="signin_generic_error">Erro ao fazer login.</string>

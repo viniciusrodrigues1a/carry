@@ -63,8 +63,8 @@ class SignupFragment : Fragment() {
             "ERROR_WEAK_PASSWORD" -> R.string.signup_weak_password_error
             "ERROR_INVALID_EMAIL" -> R.string.signup_invalid_email_error
             "ERROR_EMAIL_ALREADY_IN_USE" -> R.string.signup_email_already_in_use_error
-            "ERROR_TOO_MANY_REQUESTS" -> R.string.login_account_blocked_error
-            "ERROR_NETWORK_REQUEST_FAILED" -> R.string.login_network_request_failed_error
+            "ERROR_TOO_MANY_REQUESTS" -> R.string.auth_account_blocked_error
+            "ERROR_NETWORK_REQUEST_FAILED" -> R.string.auth_network_request_failed_error
             else -> R.string.signup_generic_error
         }
         return message
