@@ -27,4 +27,11 @@
   <string name="signup_weak_password_error">Senha muito fraca. Tente uma senha diferente.</string>
   <string name="signup_generic_error">Erro ao fazer cadastro.</string>
   <string name="signup_passwords_dont_match_error">Senhas não coincidem.</string>
+
+  // Units of measurement
+  <string name="unit_measurement">un</string>
+  <string name="liter_measurement">l</string>
+  <string name="kilogram_measurement">kg</string>
+  <string name="milligram_measurement">mg</string>
+  <string name="gram_measurement">g</string>
 </resources>

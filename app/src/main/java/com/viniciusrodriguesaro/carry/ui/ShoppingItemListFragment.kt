@@ -2,15 +2,14 @@ package com.viniciusrodriguesaro.carry.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.viniciusrodriguesaro.carry.databinding.FragmentShoppingItemListBinding
+import com.viniciusrodriguesaro.carry.R
 
 class ShoppingItemListFragment : Fragment() {
-    private var _binding: FragmentShoppingItemListBinding? = null
-    private val binding get() = _binding!!
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -19,11 +18,14 @@ class ShoppingItemListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentShoppingItemListBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+        val recyclerView =
+            inflater.inflate(R.layout.fragment_shopping_item_list, container, false) as RecyclerView
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter =
+            ShoppingItemListAdapter(requireContext(), MockedShoppingItems.mockedShoppingItems)
+        recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), R.drawable.divider))
+
+        return recyclerView
     }
 }
