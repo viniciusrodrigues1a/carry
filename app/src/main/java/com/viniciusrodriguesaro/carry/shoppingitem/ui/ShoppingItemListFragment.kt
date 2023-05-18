@@ -26,8 +26,9 @@ class ShoppingItemListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val recyclerView =
-            inflater.inflate(R.layout.fragment_shopping_item_list, container, false) as RecyclerView
+        val view =
+            inflater.inflate(R.layout.fragment_shopping_item_list, container, false)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.list)
 
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
@@ -37,7 +38,7 @@ class ShoppingItemListFragment : Fragment() {
             bindUiState(it)
         }
 
-        return recyclerView
+        return view
     }
 
     private fun bindUiState(uiState: ShoppingItemListViewModel.UiState) {
