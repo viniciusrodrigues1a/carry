@@ -1,4 +1,4 @@
-package com.viniciusrodriguesaro.carry.ui
+package com.viniciusrodriguesaro.carry.shoppingitem.ui
 
 data class ShoppingItem(
     var isChecked: Boolean,

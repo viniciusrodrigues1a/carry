@@ -1,4 +1,4 @@
-package com.viniciusrodriguesaro.carry.ui
+package com.viniciusrodriguesaro.carry.shoppingitem.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

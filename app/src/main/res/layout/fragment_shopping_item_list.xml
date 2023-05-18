@@ -9,5 +9,5 @@
   android:clipToPadding="false"
   android:paddingVertical="12dp"
   app:layoutManager="LinearLayoutManager"
-  tools:context=".ui.ShoppingItemListFragment"
+  tools:context=".shoppingitem.ui.ShoppingItemListFragment"
   tools:listitem="@layout/shopping_item" />

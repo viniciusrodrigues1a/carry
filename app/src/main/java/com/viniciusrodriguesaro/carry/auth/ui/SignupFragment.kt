@@ -1,4 +1,4 @@
-package com.viniciusrodriguesaro.carry.ui
+package com.viniciusrodriguesaro.carry.auth.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.viniciusrodriguesaro.carry.R
 import com.viniciusrodriguesaro.carry.databinding.FragmentSignupBinding
+import com.viniciusrodriguesaro.carry.shoppingitem.ui.AuthViewModel
 
 
 class SignupFragment : Fragment() {

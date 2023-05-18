@@ -6,7 +6,7 @@
   app:startDestination="@id/signinFragment">
   <fragment
     android:id="@+id/signinFragment"
-    android:name="com.viniciusrodriguesaro.carry.ui.SigninFragment"
+    android:name="com.viniciusrodriguesaro.carry.auth.ui.SigninFragment"
     android:label="Login"
     tools:layout="@layout/fragment_signin">
     <action
@@ -15,7 +15,7 @@
   </fragment>
   <fragment
     android:id="@+id/signupFragment"
-    android:name="com.viniciusrodriguesaro.carry.ui.SignupFragment"
+    android:name="com.viniciusrodriguesaro.carry.auth.ui.SignupFragment"
     android:label="Cadastro"
     tools:layout="@layout/fragment_signup">
     <action
@@ -26,7 +26,7 @@
   </fragment>
   <fragment
     android:id="@+id/shoppingItemListFragment"
-    android:name="com.viniciusrodriguesaro.carry.ui.ShoppingItemListFragment"
+    android:name="com.viniciusrodriguesaro.carry.shoppingitem.ui.ShoppingItemListFragment"
     android:label="Lista de compras"
     tools:layout="@layout/fragment_shopping_item_list" />
 </navigation>
