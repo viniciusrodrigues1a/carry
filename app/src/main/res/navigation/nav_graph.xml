@@ -7,7 +7,7 @@
   <fragment
     android:id="@+id/signinFragment"
     android:name="com.viniciusrodriguesaro.carry.auth.ui.SigninFragment"
-    android:label="Login"
+    android:label="@string/label_signin"
     tools:layout="@layout/fragment_signin">
     <action
       android:id="@+id/action_signinFragment_to_signupFragment"
@@ -16,7 +16,7 @@
   <fragment
     android:id="@+id/signupFragment"
     android:name="com.viniciusrodriguesaro.carry.auth.ui.SignupFragment"
-    android:label="Cadastro"
+    android:label="@string/label_signup"
     tools:layout="@layout/fragment_signup">
     <action
       android:id="@+id/action_signupFragment_to_signinFragment"
@@ -27,6 +27,15 @@
   <fragment
     android:id="@+id/shoppingItemListFragment"
     android:name="com.viniciusrodriguesaro.carry.shoppingitem.ui.ShoppingItemListFragment"
-    android:label="Lista de compras"
-    tools:layout="@layout/fragment_shopping_item_list" />
+    android:label="@string/label_shopping_item_list"
+    tools:layout="@layout/fragment_shopping_item_list">
+    <action
+      android:id="@+id/action_shoppingItemListFragment_to_newShoppingItemFragment"
+      app:destination="@id/newShoppingItemFragment" />
+  </fragment>
+  <fragment
+    android:id="@+id/newShoppingItemFragment"
+    android:name="com.viniciusrodriguesaro.carry.shoppingitem.ui.NewShoppingItemFragment"
+    android:label="@string/label_new_shopping_item"
+    tools:layout="@layout/fragment_new_shopping_item" />
 </navigation>

@@ -34,4 +34,17 @@
   <string name="kilogram_measurement">kg</string>
   <string name="milligram_measurement">mg</string>
   <string name="gram_measurement">g</string>
+
+  // Nav graph labels
+  <string name="label_shopping_item_list">Lista de compras</string>
+  <string name="label_signup">Cadastro</string>
+  <string name="label_signin">Login</string>
+  <string name="label_new_shopping_item">Novo item</string>
+
+  // New shopping item strings
+  <string name="shopping_item_name_hint">Digite o nome do item</string>
+  <string name="shopping_item_description_hint">Descriçao opcional do item</string>
+  <string name="shopping_item_amount_hint">Quantidade</string>
+  <string name="shopping_item_unit_hint">Unidade</string>
+  <string name="shopping_item_price_hint">Preço</string>
 </resources>

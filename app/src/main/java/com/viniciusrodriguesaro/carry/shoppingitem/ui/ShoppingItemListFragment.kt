@@ -8,10 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.viniciusrodriguesaro.carry.R
+import com.viniciusrodriguesaro.carry.databinding.FragmentShoppingItemListBinding
+import com.viniciusrodriguesaro.carry.databinding.FragmentSigninBinding
 
 class ShoppingItemListFragment : Fragment() {
     private lateinit var adapter: ShoppingItemListAdapter
+
+    private var _binding: FragmentShoppingItemListBinding? = null
+    private val binding get() = _binding!!
 
     private val viewModel: ShoppingItemListViewModel by activityViewModels {
         ShoppingItemListViewModel.Factory(MockedShoppingItemRepository)
@@ -26,9 +32,8 @@ class ShoppingItemListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view =
-            inflater.inflate(R.layout.fragment_shopping_item_list, container, false)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.list)
+        _binding = FragmentShoppingItemListBinding.inflate(inflater, container, false)
+        val recyclerView = binding.list
 
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
@@ -38,7 +43,13 @@ class ShoppingItemListFragment : Fragment() {
             bindUiState(it)
         }
 
-        return view
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.fab.setOnClickListener { _ -> findNavController().navigate(R.id.action_shoppingItemListFragment_to_newShoppingItemFragment) }
     }
 
     private fun bindUiState(uiState: ShoppingItemListViewModel.UiState) {
