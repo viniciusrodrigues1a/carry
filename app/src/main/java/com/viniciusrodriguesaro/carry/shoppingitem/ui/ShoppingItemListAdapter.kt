@@ -5,13 +5,16 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import com.viniciusrodriguesaro.carry.R
 import com.viniciusrodriguesaro.carry.databinding.ShoppingItemBinding
 
 class ShoppingItemListAdapter(
     private val context: Context,
-    private val items: List<ShoppingItem>
+    private val viewModel: ShoppingItemListViewModel
 ) : RecyclerView.Adapter<ShoppingItemListAdapter.ViewHolder>() {
+    private val asyncListDiffer: AsyncListDiffer<ShoppingItem> = AsyncListDiffer(this, DiffCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -24,17 +27,20 @@ class ShoppingItemListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items[position]
-        holder.bind(item)
+        holder.bind(asyncListDiffer.currentList[position])
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = asyncListDiffer.currentList.size
+
+    fun updateShoppingItems(shoppingItems: List<ShoppingItem>) {
+        asyncListDiffer.submitList(shoppingItems)
+    }
 
     inner class ViewHolder(private val binding: ShoppingItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ShoppingItem) {
             binding.shoppingItemNameTextview.text = item.name
-            binding.shoppingItemCheckbox.isChecked = item.isChecked
+            binding.shoppingItemCheckbox.isChecked = item.isCompleted
 
             if (item.price != null) {
                 binding.shoppingItemPriceTextview.text = item.price.toString()
@@ -64,6 +70,16 @@ class ShoppingItemListAdapter(
             } else {
                 return context.getString(R.string.unit_measurement)
             }
+        }
+    }
+
+    object DiffCallback : DiffUtil.ItemCallback<ShoppingItem>() {
+        override fun areItemsTheSame(oldItem: ShoppingItem, newItem: ShoppingItem): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: ShoppingItem, newItem: ShoppingItem): Boolean {
+            return oldItem.isCompleted == newItem.isCompleted
         }
     }
 }

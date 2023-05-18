@@ -7,7 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.viniciusrodriguesaro.carry.databinding.ActivityMainBinding
-import com.viniciusrodriguesaro.carry.shoppingitem.ui.AuthViewModel
+import com.viniciusrodriguesaro.carry.auth.ui.AuthViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

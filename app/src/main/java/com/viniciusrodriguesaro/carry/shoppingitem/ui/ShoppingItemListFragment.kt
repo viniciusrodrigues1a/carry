@@ -7,11 +7,19 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.viniciusrodriguesaro.carry.R
 
 class ShoppingItemListFragment : Fragment() {
+    private lateinit var adapter: ShoppingItemListAdapter
+
+    private val viewModel: ShoppingItemListViewModel by activityViewModels {
+        ShoppingItemListViewModel.Factory(MockedShoppingItemRepository)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        adapter = ShoppingItemListAdapter(requireContext(), viewModel)
     }
 
     override fun onCreateView(
@@ -22,10 +30,17 @@ class ShoppingItemListFragment : Fragment() {
             inflater.inflate(R.layout.fragment_shopping_item_list, container, false) as RecyclerView
 
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter =
-            ShoppingItemListAdapter(requireContext(), MockedShoppingItems.mockedShoppingItems)
+        recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), R.drawable.divider))
 
+        viewModel.stateOnceAndStream().observe(viewLifecycleOwner) {
+            bindUiState(it)
+        }
+
         return recyclerView
+    }
+
+    private fun bindUiState(uiState: ShoppingItemListViewModel.UiState) {
+        adapter.updateShoppingItems(uiState.shoppingItemList)
     }
 }

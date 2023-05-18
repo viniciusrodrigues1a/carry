@@ -1,7 +1,8 @@
 package com.viniciusrodriguesaro.carry.shoppingitem.ui
 
 data class ShoppingItem(
-    var isChecked: Boolean,
+    var id: String,
+    var isCompleted: Boolean,
     var name: String,
     var description: String,
     var price: Double?,

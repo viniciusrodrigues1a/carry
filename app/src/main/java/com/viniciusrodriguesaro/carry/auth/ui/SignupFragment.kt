@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.viniciusrodriguesaro.carry.R
 import com.viniciusrodriguesaro.carry.databinding.FragmentSignupBinding
-import com.viniciusrodriguesaro.carry.shoppingitem.ui.AuthViewModel
 
 
 class SignupFragment : Fragment() {

@@ -1,4 +1,4 @@
-package com.viniciusrodriguesaro.carry.shoppingitem.ui
+package com.viniciusrodriguesaro.carry.auth.ui
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
