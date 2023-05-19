@@ -1,5 +1,6 @@
 package com.viniciusrodriguesaro.carry.shoppingitem.ui
 
+import com.viniciusrodriguesaro.carry.shoppingitem.dto.CreateShoppingItemInput
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.MeasurementType
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.UnitOfMeasurement
 
@@ -46,7 +47,18 @@ object MockedShoppingItemRepository : ShoppingItemListRepository {
         shoppingItemList[index] = item.copy(isCompleted = !item.isCompleted)
     }
 
-    override fun createShoppingItem(shoppingItem: ShoppingItem) {
-        TODO("Not yet implemented")
+    override fun createShoppingItem(dto: CreateShoppingItemInput) {
+        val item = ShoppingItem(
+            id = "129",
+            isCompleted = false,
+            name = dto.name,
+            description = dto.description,
+            price = dto.price,
+            amount = dto.amount,
+            unitOfMeasurement = dto.unitOfMeasurement
+
+        )
+
+        shoppingItemList.add(item)
     }
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.viniciusrodriguesaro.carry.shoppingitem.dto.CreateShoppingItemInput
 
 class ShoppingItemListViewModel(private val repository: ShoppingItemListRepository) : ViewModel() {
     private val uiState: MutableLiveData<UiState> by lazy {
@@ -16,6 +17,11 @@ class ShoppingItemListViewModel(private val repository: ShoppingItemListReposito
 
     fun toggleShoppingItemCompleted(id: String) {
         repository.toggleShoppingItemCompleted(id)
+        refreshShoppingItemList()
+    }
+
+    fun createShoppingItem(shoppingItemInput: CreateShoppingItemInput) {
+        repository.createShoppingItem(shoppingItemInput)
         refreshShoppingItemList()
     }
 

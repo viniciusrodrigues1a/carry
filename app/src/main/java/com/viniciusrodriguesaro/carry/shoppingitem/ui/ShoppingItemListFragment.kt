@@ -3,7 +3,6 @@ package com.viniciusrodriguesaro.carry.shoppingitem.ui
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.viniciusrodriguesaro.carry.R
 import com.viniciusrodriguesaro.carry.databinding.FragmentShoppingItemListBinding
-import com.viniciusrodriguesaro.carry.databinding.FragmentSigninBinding
 
 class ShoppingItemListFragment : Fragment() {
     private lateinit var adapter: ShoppingItemListAdapter
