@@ -4,4 +4,6 @@ interface ShoppingItemListRepository {
     fun fetchShoppingItems(): List<ShoppingItem>
 
     fun toggleShoppingItemCompleted(id: String)
+
+    fun createShoppingItem(shoppingItem: ShoppingItem)
 }

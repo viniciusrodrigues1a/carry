@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.viniciusrodriguesaro.carry.R
 import com.viniciusrodriguesaro.carry.databinding.ShoppingItemBinding
+import com.viniciusrodriguesaro.carry.shoppingitem.dto.MeasurementType
+import com.viniciusrodriguesaro.carry.shoppingitem.dto.UnitOfMeasurement
 
 class ShoppingItemListAdapter(
     private val context: Context,

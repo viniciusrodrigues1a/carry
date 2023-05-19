@@ -1,5 +1,8 @@
 package com.viniciusrodriguesaro.carry.shoppingitem.ui
 
+import com.viniciusrodriguesaro.carry.shoppingitem.dto.MeasurementType
+import com.viniciusrodriguesaro.carry.shoppingitem.dto.UnitOfMeasurement
+
 object MockedShoppingItemRepository : ShoppingItemListRepository {
     private val shoppingItemList: MutableList<ShoppingItem> = mutableListOf(
         ShoppingItem(
@@ -35,12 +38,15 @@ object MockedShoppingItemRepository : ShoppingItemListRepository {
         )
     )
 
-
     override fun fetchShoppingItems() = shoppingItemList.map { it.copy() }
 
     override fun toggleShoppingItemCompleted(id: String) {
         val index = shoppingItemList.indexOfFirst { it.id == id }
         val item = shoppingItemList[index]
         shoppingItemList[index] = item.copy(isCompleted = !item.isCompleted)
+    }
+
+    override fun createShoppingItem(shoppingItem: ShoppingItem) {
+        TODO("Not yet implemented")
     }
 }

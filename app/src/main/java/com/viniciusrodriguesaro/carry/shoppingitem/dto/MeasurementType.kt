@@ -1,14 +1,4 @@
-package com.viniciusrodriguesaro.carry.shoppingitem.ui
-
-data class ShoppingItem(
-    var id: String,
-    var isCompleted: Boolean,
-    var name: String,
-    var description: String,
-    var price: Double?,
-    var amount: Int?,
-    var unitOfMeasurement: MeasurementType?
-)
+package com.viniciusrodriguesaro.carry.shoppingitem.dto
 
 sealed class MeasurementType {
     data class StringMeasurement(val value: String) : MeasurementType()
