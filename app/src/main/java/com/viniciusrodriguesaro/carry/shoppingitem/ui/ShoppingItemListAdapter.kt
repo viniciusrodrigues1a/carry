@@ -7,10 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
-import com.viniciusrodriguesaro.carry.R
 import com.viniciusrodriguesaro.carry.databinding.ShoppingItemBinding
-import com.viniciusrodriguesaro.carry.shoppingitem.dto.MeasurementType
-import com.viniciusrodriguesaro.carry.shoppingitem.dto.UnitOfMeasurement
+import com.viniciusrodriguesaro.carry.shoppingitem.ui.utils.unitOfMeasurementToLocalizedString
 
 class ShoppingItemListAdapter(
     private val context: Context,
@@ -57,27 +55,9 @@ class ShoppingItemListAdapter(
             }
 
             if (item.amount != null && item.unitOfMeasurement != null) {
-                val localizedUnitOfMeasurement = localizeUnitOfMeasurement(item)
+                val localizedUnitOfMeasurement = unitOfMeasurementToLocalizedString(context, item.unitOfMeasurement)
                 binding.shoppingItemUnitTextview.text = "${item.amount} $localizedUnitOfMeasurement"
                 binding.shoppingItemUnitTextview.visibility = View.VISIBLE
-            }
-        }
-
-        fun localizeUnitOfMeasurement(item: ShoppingItem): String {
-            val u = item.unitOfMeasurement
-
-            if (u is MeasurementType.EnumMeasurement) {
-                return when ((u as MeasurementType.EnumMeasurement).value) {
-                    UnitOfMeasurement.UNIT -> context.getString(R.string.unit_measurement)
-                    UnitOfMeasurement.LITER -> context.getString(R.string.liter_measurement)
-                    UnitOfMeasurement.KILOGRAM -> context.getString(R.string.kilogram_measurement)
-                    UnitOfMeasurement.MILLIGRAM -> context.getString(R.string.milligram_measurement)
-                    UnitOfMeasurement.GRAM -> context.getString(R.string.gram_measurement)
-                }
-            } else if (u is MeasurementType.StringMeasurement) {
-                return (u as MeasurementType.StringMeasurement).value
-            } else {
-                return context.getString(R.string.unit_measurement)
             }
         }
     }
