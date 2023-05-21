@@ -41,6 +41,13 @@ class ShoppingItemListAdapter(
     inner class ViewHolder(private val binding: ShoppingItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ShoppingItem) {
+            binding.shoppingItemCheckbox.isChecked = item.isCompleted
+            binding.shoppingItemCheckbox.addOnCheckedStateChangedListener { _, _ ->
+                viewModel.toggleShoppingItemCompleted(
+                    item.id
+                )
+            }
+
             binding.shoppingItemNameTextview.text = item.name
             binding.shoppingItemCheckbox.isChecked = item.isCompleted
 
