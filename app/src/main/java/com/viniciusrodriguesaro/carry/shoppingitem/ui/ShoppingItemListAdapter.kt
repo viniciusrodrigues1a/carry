@@ -5,13 +5,15 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.viniciusrodriguesaro.carry.databinding.ShoppingItemBinding
-import com.viniciusrodriguesaro.carry.shoppingitem.ui.utils.unitOfMeasurementToLocalizedString
+import com.viniciusrodriguesaro.carry.shoppingitem.ui.utils.measurementTypeToLocalizedString
 
 class ShoppingItemListAdapter(
     private val context: Context,
+    private val navController: NavController,
     private val viewModel: ShoppingItemListViewModel
 ) : RecyclerView.Adapter<ShoppingItemListAdapter.ViewHolder>() {
     private val asyncListDiffer: AsyncListDiffer<ShoppingItem> = AsyncListDiffer(this, DiffCallback)
@@ -39,15 +41,38 @@ class ShoppingItemListAdapter(
     inner class ViewHolder(private val binding: ShoppingItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ShoppingItem) {
+            bindShoppingItemCheckbox(item)
+            bindShoppingItemConstraintLayout(item)
+            bindInputs(item)
+        }
+
+        private fun bindShoppingItemConstraintLayout(item: ShoppingItem) {
+            val action =
+                ShoppingItemListFragmentDirections.actionShoppingItemListFragmentToEditShoppingItemFragment(
+                    item.name,
+                    item.description,
+                    item.amount ?: -1,
+                    measurementTypeToLocalizedString(context, item.unitOfMeasurement),
+                    item.price?.toFloat() ?: -1F
+                )
+            binding.shoppingItemConstraintLayout.setOnClickListener { _ ->
+                navController.navigate(
+                    action
+                )
+            }
+        }
+
+        private fun bindShoppingItemCheckbox(item: ShoppingItem) {
             binding.shoppingItemCheckbox.isChecked = item.isCompleted
             binding.shoppingItemCheckbox.addOnCheckedStateChangedListener { _, _ ->
                 viewModel.toggleShoppingItemCompleted(
                     item.id
                 )
             }
+        }
 
+        private fun bindInputs(item: ShoppingItem) {
             binding.shoppingItemNameTextview.text = item.name
-            binding.shoppingItemCheckbox.isChecked = item.isCompleted
 
             if (item.price != null) {
                 binding.shoppingItemPriceTextview.text = item.price.toString()
@@ -55,7 +80,8 @@ class ShoppingItemListAdapter(
             }
 
             if (item.amount != null && item.unitOfMeasurement != null) {
-                val localizedUnitOfMeasurement = unitOfMeasurementToLocalizedString(context, item.unitOfMeasurement)
+                val localizedUnitOfMeasurement =
+                    measurementTypeToLocalizedString(context, item.unitOfMeasurement)
                 binding.shoppingItemUnitTextview.text = "${item.amount} $localizedUnitOfMeasurement"
                 binding.shoppingItemUnitTextview.visibility = View.VISIBLE
             }

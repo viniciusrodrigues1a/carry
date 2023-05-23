@@ -6,7 +6,7 @@ import com.viniciusrodriguesaro.carry.shoppingitem.dto.MeasurementType
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.UnitOfMeasurement
 
 
-fun localizedStringToUnitOfMeasurement(context: Context, s: String): MeasurementType {
+fun localizedStringToMeasurementType(context: Context, s: String): MeasurementType {
     val localizedStringsEnum = object {
         val LOCALIZED_UNIT = context.getString(R.string.unit_measurement)
         val LOCALIZED_L = context.getString(R.string.liter_measurement)

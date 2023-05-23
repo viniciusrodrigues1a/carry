@@ -1,7 +1,7 @@
 package com.viniciusrodriguesaro.carry.shoppingitem.dto
 
 import android.content.Context
-import com.viniciusrodriguesaro.carry.shoppingitem.ui.utils.unitOfMeasurementToLocalizedString
+import com.viniciusrodriguesaro.carry.shoppingitem.ui.utils.measurementTypeToLocalizedString
 
 sealed class MeasurementType {
     data class StringMeasurement(val value: String) : MeasurementType()
@@ -19,7 +19,7 @@ enum class UnitOfMeasurement {
         fun getLocalizedValues(context: Context): Array<String> {
             return UnitOfMeasurement.values()
                 .map {
-                    unitOfMeasurementToLocalizedString(
+                    measurementTypeToLocalizedString(
                         context,
                         MeasurementType.EnumMeasurement(it)
                     )

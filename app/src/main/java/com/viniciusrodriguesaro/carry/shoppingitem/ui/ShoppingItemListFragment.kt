@@ -23,7 +23,7 @@ class ShoppingItemListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = ShoppingItemListAdapter(requireContext(), viewModel)
+        adapter = ShoppingItemListAdapter(requireContext(), findNavController(), viewModel)
     }
 
     override fun onCreateView(

@@ -47,4 +47,8 @@
   <string name="shopping_item_amount_hint">Quantidade</string>
   <string name="shopping_item_unit_hint">Unidade</string>
   <string name="shopping_item_price_hint">Preço</string>
+  <string name="label_edit_shopping_item">Editar item</string>
+  <string name="new_shopping_item_button_label">Criar item</string>
+  <string name="edit_shopping_item_button_label">Editar item</string>
+  <string name="delete_shopping_item_button_label">Deletar item</string>
 </resources>

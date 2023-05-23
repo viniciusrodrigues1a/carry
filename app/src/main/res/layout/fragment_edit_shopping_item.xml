@@ -5,7 +5,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:padding="18dp"
-  tools:context=".shoppingitem.ui.NewShoppingItemFragment">
+  tools:context=".shoppingitem.ui.EditShoppingItemFragment">
 
   <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/name_text_field"
@@ -96,11 +96,24 @@
     android:id="@+id/submit_button"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="32dp"
     android:enabled="false"
-    android:text="@string/new_shopping_item_button_label"
+    android:text="@string/edit_shopping_item_button_label"
     android:textAllCaps="false"
-    app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent" />
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/price_text_field" />
+
+  <Button
+    android:id="@+id/delete_button"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:enabled="false"
+    android:text="@string/delete_shopping_item_button_label"
+    android:textAllCaps="false"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/submit_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

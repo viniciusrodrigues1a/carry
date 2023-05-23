@@ -15,7 +15,7 @@ import com.viniciusrodriguesaro.carry.databinding.FragmentNewShoppingItemBinding
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.CreateShoppingItemInput
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.MeasurementType
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.UnitOfMeasurement
-import com.viniciusrodriguesaro.carry.shoppingitem.ui.utils.localizedStringToUnitOfMeasurement
+import com.viniciusrodriguesaro.carry.shoppingitem.ui.utils.localizedStringToMeasurementType
 
 class NewShoppingItemFragment : Fragment() {
     private var _binding: FragmentNewShoppingItemBinding? = null
@@ -35,10 +35,11 @@ class NewShoppingItemFragment : Fragment() {
     ): View? {
         _binding = FragmentNewShoppingItemBinding.inflate(inflater, container, false)
 
+        val context = requireContext()
         val adapter = ArrayAdapter(
-            requireContext(),
+            context,
             R.layout.shopping_item_dropdown_item,
-            UnitOfMeasurement.getLocalizedValues(requireContext())
+            UnitOfMeasurement.getLocalizedValues(context)
         );
         binding.unitAutoCompleteTextView.setAdapter(adapter)
 
@@ -62,7 +63,7 @@ class NewShoppingItemFragment : Fragment() {
         val unitText = binding.unitAutoCompleteTextView.text.toString()
 
         if (!unitText.isNullOrEmpty()) {
-            val unit = localizedStringToUnitOfMeasurement(requireContext(), unitText)
+            val unit = localizedStringToMeasurementType(requireContext(), unitText)
             Log.d("NEW_SHOPPING_ITEM", "${unit.toString()}")
         }
 

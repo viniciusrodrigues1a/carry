@@ -32,10 +32,56 @@
     <action
       android:id="@+id/action_shoppingItemListFragment_to_newShoppingItemFragment"
       app:destination="@id/newShoppingItemFragment" />
+    <action
+      android:id="@+id/action_shoppingItemListFragment_to_editShoppingItemFragment"
+      app:destination="@id/editShoppingItemFragment">
+
+      <argument
+        android:name="name"
+        app:argType="string" />
+      <argument
+        android:name="description"
+        app:argType="string"
+        app:nullable="true" />
+      <argument
+        android:name="amount"
+        app:argType="integer" />
+      <argument
+        android:name="measurementType"
+        app:argType="string"
+        app:nullable="true" />
+      <argument
+        android:name="price"
+        app:argType="float" />
+    </action>
   </fragment>
   <fragment
     android:id="@+id/newShoppingItemFragment"
     android:name="com.viniciusrodriguesaro.carry.shoppingitem.ui.NewShoppingItemFragment"
     android:label="@string/label_new_shopping_item"
     tools:layout="@layout/fragment_new_shopping_item" />
+  <fragment
+    android:id="@+id/editShoppingItemFragment"
+    android:name="com.viniciusrodriguesaro.carry.shoppingitem.ui.EditShoppingItemFragment"
+    android:label="@string/label_edit_shopping_item"
+    tools:layout="@layout/fragment_edit_shopping_item">
+
+    <argument
+      android:name="name"
+      app:argType="string" />
+    <argument
+      android:name="description"
+      app:argType="string"
+      app:nullable="true" />
+    <argument
+      android:name="amount"
+      app:argType="integer" />
+    <argument
+      android:name="measurementType"
+      app:argType="string"
+      app:nullable="true" />
+    <argument
+      android:name="price"
+      app:argType="float" />
+  </fragment>
 </navigation>

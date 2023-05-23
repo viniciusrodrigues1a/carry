@@ -5,7 +5,7 @@ import com.viniciusrodriguesaro.carry.R
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.MeasurementType
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.UnitOfMeasurement
 
-fun unitOfMeasurementToLocalizedString(context: Context, measurement: MeasurementType?): String {
+fun measurementTypeToLocalizedString(context: Context, measurement: MeasurementType?): String {
     if (measurement is MeasurementType.EnumMeasurement) {
         return when ((measurement as MeasurementType.EnumMeasurement).value) {
             UnitOfMeasurement.UNIT -> context.getString(R.string.unit_measurement)
