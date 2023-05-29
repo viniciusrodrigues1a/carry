@@ -7,7 +7,7 @@ data class ShoppingItem(
     var isCompleted: Boolean,
     var name: String,
     var description: String,
-    var price: Double?,
+    var price: Int?,
     var amount: Int?,
     var unitOfMeasurement: MeasurementType?
 )

@@ -1,6 +1,7 @@
 package com.viniciusrodriguesaro.carry.shoppingitem.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -10,6 +11,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.viniciusrodriguesaro.carry.R
 import com.viniciusrodriguesaro.carry.databinding.FragmentShoppingItemListBinding
+import com.viniciusrodriguesaro.carry.shoppingitem.data.FirestoreShoppingItemListRepository
+import com.viniciusrodriguesaro.carry.shoppingitem.data.FirestoreShoppingItemRepository
 
 class ShoppingItemListFragment : Fragment() {
     private lateinit var adapter: ShoppingItemListAdapter
@@ -17,13 +20,18 @@ class ShoppingItemListFragment : Fragment() {
     private var _binding: FragmentShoppingItemListBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ShoppingItemListViewModel by activityViewModels {
-        ShoppingItemListViewModel.Factory(MockedShoppingItemRepository)
+    private val shoppingItemViewModel: ShoppingItemViewModel by activityViewModels {
+        ShoppingItemViewModel.Factory(FirestoreShoppingItemRepository())
+    }
+    private val shoppingItemListViewModel: ShoppingItemListViewModel by activityViewModels {
+        ShoppingItemListViewModel.Factory(FirestoreShoppingItemListRepository())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = ShoppingItemListAdapter(requireContext(), findNavController(), viewModel)
+        adapter =
+            ShoppingItemListAdapter(requireContext(), findNavController(), shoppingItemViewModel)
+
     }
 
     override fun onCreateView(
@@ -37,9 +45,16 @@ class ShoppingItemListFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), R.drawable.divider))
 
-        viewModel.stateOnceAndStream().observe(viewLifecycleOwner) {
+        shoppingItemListViewModel.stateOnceAndStream().observe(viewLifecycleOwner) {
+            if (it?.id != null) {
+                shoppingItemViewModel.setShoppingItemListId(it.id)
+            }
+        }
+
+        shoppingItemViewModel.stateOnceAndStream().observe(viewLifecycleOwner) {
             bindUiState(it)
         }
+
 
         return binding.root
     }
@@ -50,7 +65,7 @@ class ShoppingItemListFragment : Fragment() {
         binding.fab.setOnClickListener { _ -> findNavController().navigate(R.id.action_shoppingItemListFragment_to_newShoppingItemFragment) }
     }
 
-    private fun bindUiState(uiState: ShoppingItemListViewModel.UiState) {
+    private fun bindUiState(uiState: ShoppingItemViewModel.UiState) {
         adapter.updateShoppingItems(uiState.shoppingItemList.sortedBy { it.isCompleted })
     }
 }

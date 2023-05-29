@@ -13,16 +13,14 @@ import androidx.navigation.fragment.findNavController
 import com.viniciusrodriguesaro.carry.R
 import com.viniciusrodriguesaro.carry.databinding.FragmentNewShoppingItemBinding
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.CreateShoppingItemInput
-import com.viniciusrodriguesaro.carry.shoppingitem.dto.MeasurementType
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.UnitOfMeasurement
-import com.viniciusrodriguesaro.carry.shoppingitem.ui.utils.localizedStringToMeasurementType
 
 class NewShoppingItemFragment : Fragment() {
     private var _binding: FragmentNewShoppingItemBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ShoppingItemListViewModel by activityViewModels {
-        ShoppingItemListViewModel.Factory(MockedShoppingItemRepository)
+    private val viewModel: ShoppingItemViewModel by activityViewModels {
+        ShoppingItemViewModel.Factory(MockedShoppingItemRepository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,22 +47,32 @@ class NewShoppingItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.submitButton.setOnClickListener { _ -> createShoppingItem() }
+        binding.submitButton.setOnClickListener { _ -> handleOnCreatePress() }
         binding.nameEditText.addTextChangedListener {
             binding.submitButton.isEnabled = !it.isNullOrEmpty()
         }
     }
 
-    fun createShoppingItem() {
+    private fun handleOnCreatePress() {
+        createShoppingItem()
+
+        findNavController().popBackStack()
+    }
+
+    private fun createShoppingItem() {
         val name = binding.nameEditText.text.toString()
         val description = binding.descriptionEditText.text.toString()
-        val price = binding.priceEditText.text.toString().toDoubleOrNull()
+        val price = binding.priceEditText.text.toString().toIntOrNull()
 
         val unitText = binding.unitAutoCompleteTextView.text.toString()
+        val amountText = binding.amountEditText.text.toString()
 
-        if (!unitText.isNullOrEmpty()) {
-            val unit = localizedStringToMeasurementType(requireContext(), unitText)
-            Log.d("NEW_SHOPPING_ITEM", "${unit.toString()}")
+        var amount: Int? = null
+        var unit: String? = null
+
+        if (!unitText.isNullOrEmpty() && !amountText.isNullOrEmpty()) {
+            unit = unitText
+            amount = amountText.toInt()
         }
 
         viewModel.createShoppingItem(
@@ -72,11 +80,9 @@ class NewShoppingItemFragment : Fragment() {
                 name = name,
                 description = description,
                 price = price,
-                amount = 1,
-                unitOfMeasurement = MeasurementType.EnumMeasurement(UnitOfMeasurement.UNIT)
+                amount = amount,
+                unitOfMeasurementString = unit
             )
         )
-
-        findNavController().navigateUp()
     }
 }

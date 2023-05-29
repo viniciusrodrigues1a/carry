@@ -1,28 +1,31 @@
 package com.viniciusrodriguesaro.carry.shoppingitem.ui
 
+import com.google.android.gms.tasks.Task
+import com.google.android.gms.tasks.TaskCompletionSource
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.CreateShoppingItemInput
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.MeasurementType
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.UnitOfMeasurement
+import com.viniciusrodriguesaro.carry.shoppingitem.dto.UpdateShoppingItemInput
 
-object MockedShoppingItemRepository : ShoppingItemListRepository {
+object MockedShoppingItemRepository : ShoppingItemRepository {
     private val shoppingItemList: MutableList<ShoppingItem> = mutableListOf(
         ShoppingItem(
             "123",
             true,
             "Milk",
             "Fresh whole milk",
-            2.99,
+            299,
             1,
             MeasurementType.StringMeasurement("Boxes")
         ),
         ShoppingItem(
-            "124", false, "Bread", "Whole wheat bread", 1.99, 1, MeasurementType.EnumMeasurement(
+            "124", false, "Bread", "Whole wheat bread", 199, 1, MeasurementType.EnumMeasurement(
                 UnitOfMeasurement.UNIT
             )
         ),
         ShoppingItem("125", false, "Eggs", "Farm-fresh eggs", null, null, null),
         ShoppingItem(
-            "126", true, "Apples", "Organic red apples", 0.99, 6, MeasurementType.EnumMeasurement(
+            "126", true, "Apples", "Organic red apples", 99, 6, MeasurementType.EnumMeasurement(
                 UnitOfMeasurement.KILOGRAM
             )
         ),
@@ -31,7 +34,7 @@ object MockedShoppingItemRepository : ShoppingItemListRepository {
             false,
             "Chicken",
             "Boneless chicken breasts",
-            5.99,
+            99,
             2,
             MeasurementType.EnumMeasurement(
                 UnitOfMeasurement.KILOGRAM
@@ -39,15 +42,29 @@ object MockedShoppingItemRepository : ShoppingItemListRepository {
         )
     )
 
-    override fun fetchShoppingItems() = shoppingItemList.map { it.copy() }
+    override fun fetchShoppingItems(shoppingItemListId: String): Task<List<ShoppingItem>> {
+        val taskCompletionSource = TaskCompletionSource<List<ShoppingItem>>()
 
-    override fun toggleShoppingItemCompleted(id: String) {
+        taskCompletionSource.setResult(shoppingItemList.map { it.copy() })
+
+        return taskCompletionSource.task
+    }
+
+    override fun toggleShoppingItemCompleted(shoppingItemListId: String, id: String): Task<Unit> {
+        val taskCompletionSource = TaskCompletionSource<Unit>()
+
         val index = shoppingItemList.indexOfFirst { it.id == id }
         val item = shoppingItemList[index]
         shoppingItemList[index] = item.copy(isCompleted = !item.isCompleted)
+
+        taskCompletionSource.setResult(Unit)
+
+        return taskCompletionSource.task
     }
 
-    override fun createShoppingItem(dto: CreateShoppingItemInput) {
+    override fun createShoppingItem(shoppingItemListId: String, dto: CreateShoppingItemInput): Task<Unit> {
+        val taskCompletionSource = TaskCompletionSource<Unit>()
+
         val item = ShoppingItem(
             id = "129",
             isCompleted = false,
@@ -55,10 +72,36 @@ object MockedShoppingItemRepository : ShoppingItemListRepository {
             description = dto.description,
             price = dto.price,
             amount = dto.amount,
-            unitOfMeasurement = dto.unitOfMeasurement
+            unitOfMeasurement = MeasurementType.StringMeasurement(dto.unitOfMeasurementString ?: "")
 
         )
 
         shoppingItemList.add(item)
+
+        taskCompletionSource.setResult(Unit)
+
+        return taskCompletionSource.task
+    }
+
+    override fun updateShoppingItem(
+        shoppingItemListId: String,
+        shoppingItemInput: UpdateShoppingItemInput
+    ): Task<Unit> {
+        val taskCompletionSource = TaskCompletionSource<Unit>()
+
+        taskCompletionSource.setResult(Unit)
+
+        return taskCompletionSource.task
+    }
+
+    override fun deleteShoppingItem(
+        shoppingItemListId: String,
+        shoppingItemId: String
+    ): Task<Unit> {
+        val taskCompletionSource = TaskCompletionSource<Unit>()
+
+        taskCompletionSource.setResult(Unit)
+
+        return taskCompletionSource.task
     }
 }

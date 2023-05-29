@@ -14,7 +14,7 @@ import com.viniciusrodriguesaro.carry.shoppingitem.ui.utils.measurementTypeToLoc
 class ShoppingItemListAdapter(
     private val context: Context,
     private val navController: NavController,
-    private val viewModel: ShoppingItemListViewModel
+    private val viewModel: ShoppingItemViewModel
 ) : RecyclerView.Adapter<ShoppingItemListAdapter.ViewHolder>() {
     private val asyncListDiffer: AsyncListDiffer<ShoppingItem> = AsyncListDiffer(this, DiffCallback)
 
@@ -49,6 +49,7 @@ class ShoppingItemListAdapter(
         private fun bindShoppingItemConstraintLayout(item: ShoppingItem) {
             val action =
                 ShoppingItemListFragmentDirections.actionShoppingItemListFragmentToEditShoppingItemFragment(
+                    item.id,
                     item.name,
                     item.description,
                     item.amount ?: -1,
@@ -63,11 +64,10 @@ class ShoppingItemListAdapter(
         }
 
         private fun bindShoppingItemCheckbox(item: ShoppingItem) {
+            binding.shoppingItemCheckbox.setOnCheckedChangeListener(null)
             binding.shoppingItemCheckbox.isChecked = item.isCompleted
-            binding.shoppingItemCheckbox.addOnCheckedStateChangedListener { _, _ ->
-                viewModel.toggleShoppingItemCompleted(
-                    item.id
-                )
+            binding.shoppingItemCheckbox.setOnCheckedChangeListener { _, _ ->
+                viewModel.toggleShoppingItemCompleted(item.id)
             }
         }
 
@@ -94,7 +94,7 @@ class ShoppingItemListAdapter(
         }
 
         override fun areContentsTheSame(oldItem: ShoppingItem, newItem: ShoppingItem): Boolean {
-            return oldItem.isCompleted == newItem.isCompleted
+            return oldItem == newItem
         }
     }
 }

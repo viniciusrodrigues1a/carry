@@ -37,6 +37,9 @@
       app:destination="@id/editShoppingItemFragment">
 
       <argument
+        android:name="id"
+        app:argType="string" />
+      <argument
         android:name="name"
         app:argType="string" />
       <argument
@@ -66,6 +69,9 @@
     android:label="@string/label_edit_shopping_item"
     tools:layout="@layout/fragment_edit_shopping_item">
 
+    <argument
+      android:name="id"
+      app:argType="string" />
     <argument
       android:name="name"
       app:argType="string" />

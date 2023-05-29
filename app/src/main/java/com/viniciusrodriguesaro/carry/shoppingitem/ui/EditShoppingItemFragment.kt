@@ -6,16 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.viniciusrodriguesaro.carry.R
 import com.viniciusrodriguesaro.carry.databinding.FragmentEditShoppingItemBinding
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.UnitOfMeasurement
+import com.viniciusrodriguesaro.carry.shoppingitem.dto.UpdateShoppingItemInput
 
 class EditShoppingItemFragment : Fragment() {
     private var _binding: FragmentEditShoppingItemBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var adapter: ArrayAdapter<String>
+
+    private val viewModel: ShoppingItemViewModel by activityViewModels {
+        ShoppingItemViewModel.Factory(MockedShoppingItemRepository)
+    }
 
     private val args: EditShoppingItemFragmentArgs by navArgs()
 
@@ -64,7 +71,48 @@ class EditShoppingItemFragment : Fragment() {
 
     private fun bindButtons() {
         binding.submitButton.isEnabled = true
+        binding.submitButton.setOnClickListener { _ -> handleOnUpdatePress() }
+
         binding.deleteButton.isEnabled = true
         binding.deleteButton.setBackgroundColor(resources.getColor(R.color.red))
+        binding.deleteButton.setOnClickListener { _ -> handleOnDeletePress() }
+    }
+
+    private fun handleOnUpdatePress() {
+        updateShoppingItem()
+        findNavController().popBackStack()
+    }
+
+    private fun updateShoppingItem() {
+        val name = binding.nameEditText.text.toString()
+        val description = binding.descriptionEditText.text.toString()
+        val price = binding.priceEditText.text.toString().toIntOrNull()
+
+        val unitText = binding.unitAutoCompleteTextView.text.toString()
+        val amountText = binding.amountEditText.text.toString()
+
+        var unit: String? = null
+        var amount: Int? = null
+
+        if (!unitText.isNullOrEmpty() && !amountText.isNullOrEmpty()) {
+            unit = unitText
+            amount = amountText.toInt()
+        }
+
+        viewModel.updateShoppingItem(
+            UpdateShoppingItemInput(
+                id = args.id,
+                newName = name,
+                newDescription = description,
+                newPrice = price,
+                newAmount = amount,
+                newUnitOfMeasurentString = unit,
+            )
+        )
+    }
+
+    private fun handleOnDeletePress() {
+        viewModel.deleteShoppingItem(args.id)
+        findNavController().popBackStack()
     }
 }
