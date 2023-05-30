@@ -9,7 +9,7 @@ import androidx.navigation.NavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.viniciusrodriguesaro.carry.databinding.ShoppingItemBinding
-import com.viniciusrodriguesaro.carry.shoppingitem.ui.utils.measurementTypeToLocalizedString
+import com.viniciusrodriguesaro.carry.shoppingitem.utils.measurementTypeToLocalizedString
 
 class ShoppingItemListAdapter(
     private val context: Context,

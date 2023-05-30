@@ -1,7 +1,7 @@
 package com.viniciusrodriguesaro.carry.shoppingitem.dto
 
 import android.content.Context
-import com.viniciusrodriguesaro.carry.shoppingitem.ui.utils.measurementTypeToLocalizedString
+import com.viniciusrodriguesaro.carry.shoppingitem.utils.measurementTypeToLocalizedString
 
 sealed class MeasurementType {
     data class StringMeasurement(val value: String) : MeasurementType()

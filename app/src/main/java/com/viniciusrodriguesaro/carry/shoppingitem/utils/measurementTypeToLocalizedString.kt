@@ -1,4 +1,4 @@
-package com.viniciusrodriguesaro.carry.shoppingitem.ui.utils
+package com.viniciusrodriguesaro.carry.shoppingitem.utils
 
 import android.content.Context
 import com.viniciusrodriguesaro.carry.R
