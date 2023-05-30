@@ -1,7 +1,6 @@
 package com.viniciusrodriguesaro.carry.shoppingitem.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.viniciusrodriguesaro.carry.R
 import com.viniciusrodriguesaro.carry.databinding.FragmentNewShoppingItemBinding
+import com.viniciusrodriguesaro.carry.shoppingitem.data.FirestoreShoppingItemRepository
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.CreateShoppingItemInput
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.UnitOfMeasurement
 
@@ -20,7 +20,7 @@ class NewShoppingItemFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: ShoppingItemViewModel by activityViewModels {
-        ShoppingItemViewModel.Factory(MockedShoppingItemRepository)
+        ShoppingItemViewModel.Factory(FirestoreShoppingItemRepository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

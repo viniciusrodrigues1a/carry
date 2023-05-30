@@ -13,7 +13,11 @@ import com.viniciusrodriguesaro.carry.shoppingitem.dto.UpdateShoppingItemInput
 import com.viniciusrodriguesaro.carry.shoppingitem.ui.ShoppingItem
 import com.viniciusrodriguesaro.carry.shoppingitem.ui.interfaces.ShoppingItemRepository
 
-class FirestoreShoppingItemRepository() : ShoppingItemRepository {
+object FirestoreShoppingItemRepository : ShoppingItemRepository {
+    private var SHOPPING_ITEM_LIST_COLLECTION_ID = "ShoppingItemList"
+    private var SHOPPING_ITEM_COLLECTION_ID = "ShoppingItem"
+    private var TAG = "FIRESTORE_SHOPPING_ITEM_REPOSITORY"
+
     private val firestore: FirebaseFirestore = Firebase.firestore
 
     init {
@@ -156,12 +160,6 @@ class FirestoreShoppingItemRepository() : ShoppingItemRepository {
         }
 
         return taskCompletionSource.task
-    }
-
-    companion object {
-        var SHOPPING_ITEM_LIST_COLLECTION_ID = "ShoppingItemList"
-        var SHOPPING_ITEM_COLLECTION_ID = "ShoppingItem"
-        var TAG = "FIRESTORE_SHOPPING_ITEM_REPOSITORY"
     }
 
     override fun deleteShoppingItem(

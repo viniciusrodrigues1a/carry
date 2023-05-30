@@ -10,7 +10,10 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.viniciusrodriguesaro.carry.shoppingitem.ui.interfaces.ShoppingItemListRepository
 
-class FirestoreShoppingItemListRepository : ShoppingItemListRepository {
+object FirestoreShoppingItemListRepository : ShoppingItemListRepository {
+    private var SHOPPING_ITEM_LIST_COLLECTION_ID = "ShoppingItemList"
+    private var TAG = "FIRESTORE_SHOPPING_ITEM_LIST_REPOSITORY"
+
     private val firestore: FirebaseFirestore = Firebase.firestore
     private val auth: FirebaseAuth = Firebase.auth
 
@@ -58,7 +61,7 @@ class FirestoreShoppingItemListRepository : ShoppingItemListRepository {
                     taskCompletionSource.setResult(newDocRef.id)
                 }.addOnFailureListener { exception ->
                     Log.d(
-                        FirestoreShoppingItemRepository.TAG,
+                        TAG,
                         "Error creating document: $exception"
                     )
                     taskCompletionSource.setException(exception)
@@ -68,10 +71,5 @@ class FirestoreShoppingItemListRepository : ShoppingItemListRepository {
         }
 
         return taskCompletionSource.task
-    }
-
-    companion object {
-        var SHOPPING_ITEM_LIST_COLLECTION_ID = "ShoppingItemList"
-        var TAG = "FIRESTORE_SHOPPING_ITEM_LIST_REPOSITORY"
     }
 }

@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.viniciusrodriguesaro.carry.R
 import com.viniciusrodriguesaro.carry.databinding.FragmentEditShoppingItemBinding
+import com.viniciusrodriguesaro.carry.shoppingitem.data.FirestoreShoppingItemRepository
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.UnitOfMeasurement
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.UpdateShoppingItemInput
 
@@ -21,7 +22,7 @@ class EditShoppingItemFragment : Fragment() {
     private lateinit var adapter: ArrayAdapter<String>
 
     private val viewModel: ShoppingItemViewModel by activityViewModels {
-        ShoppingItemViewModel.Factory(MockedShoppingItemRepository)
+        ShoppingItemViewModel.Factory(FirestoreShoppingItemRepository)
     }
 
     private val args: EditShoppingItemFragmentArgs by navArgs()

@@ -1,7 +1,6 @@
 package com.viniciusrodriguesaro.carry.shoppingitem.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -21,10 +20,10 @@ class ShoppingItemListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val shoppingItemViewModel: ShoppingItemViewModel by activityViewModels {
-        ShoppingItemViewModel.Factory(FirestoreShoppingItemRepository())
+        ShoppingItemViewModel.Factory(FirestoreShoppingItemRepository)
     }
     private val shoppingItemListViewModel: ShoppingItemListViewModel by activityViewModels {
-        ShoppingItemListViewModel.Factory(FirestoreShoppingItemListRepository())
+        ShoppingItemListViewModel.Factory(FirestoreShoppingItemListRepository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
