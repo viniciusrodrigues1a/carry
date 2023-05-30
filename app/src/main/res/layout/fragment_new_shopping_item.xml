@@ -89,7 +89,9 @@
     <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/price_edit_text"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content" />
+      android:layout_height="wrap_content"
+      android:digits="0123456789."
+      android:inputType="numberDecimal" />
   </com.google.android.material.textfield.TextInputLayout>
 
   <Button
