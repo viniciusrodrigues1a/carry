@@ -1,12 +1,12 @@
 package com.viniciusrodriguesaro.carry.shoppingitem.ui
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.CreateShoppingItemInput
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.UpdateShoppingItemInput
+import com.viniciusrodriguesaro.carry.shoppingitem.ui.interfaces.ShoppingItemRepository
 
 class ShoppingItemViewModel(private val repository: ShoppingItemRepository) : ViewModel() {
     private val uiState: MutableLiveData<UiState> by lazy {

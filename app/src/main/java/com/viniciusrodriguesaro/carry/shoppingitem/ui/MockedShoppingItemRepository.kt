@@ -6,6 +6,7 @@ import com.viniciusrodriguesaro.carry.shoppingitem.dto.CreateShoppingItemInput
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.MeasurementType
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.UnitOfMeasurement
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.UpdateShoppingItemInput
+import com.viniciusrodriguesaro.carry.shoppingitem.ui.interfaces.ShoppingItemRepository
 
 object MockedShoppingItemRepository : ShoppingItemRepository {
     private val shoppingItemList: MutableList<ShoppingItem> = mutableListOf(

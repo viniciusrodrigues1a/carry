@@ -11,7 +11,7 @@ import com.viniciusrodriguesaro.carry.shoppingitem.dto.CreateShoppingItemInput
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.MeasurementType
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.UpdateShoppingItemInput
 import com.viniciusrodriguesaro.carry.shoppingitem.ui.ShoppingItem
-import com.viniciusrodriguesaro.carry.shoppingitem.ui.ShoppingItemRepository
+import com.viniciusrodriguesaro.carry.shoppingitem.ui.interfaces.ShoppingItemRepository
 
 class FirestoreShoppingItemRepository() : ShoppingItemRepository {
     private val firestore: FirebaseFirestore = Firebase.firestore

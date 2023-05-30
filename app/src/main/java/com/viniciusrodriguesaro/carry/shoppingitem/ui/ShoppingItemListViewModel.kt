@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.viniciusrodriguesaro.carry.shoppingitem.ui.interfaces.ShoppingItemListRepository
 
 class ShoppingItemListViewModel(private val repository: ShoppingItemListRepository) : ViewModel() {
     private val uiState: MutableLiveData<UiState?> by lazy {

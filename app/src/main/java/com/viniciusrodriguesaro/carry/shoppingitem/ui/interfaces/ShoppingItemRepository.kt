@@ -1,8 +1,9 @@
-package com.viniciusrodriguesaro.carry.shoppingitem.ui
+package com.viniciusrodriguesaro.carry.shoppingitem.ui.interfaces
 
 import com.google.android.gms.tasks.Task
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.CreateShoppingItemInput
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.UpdateShoppingItemInput
+import com.viniciusrodriguesaro.carry.shoppingitem.ui.ShoppingItem
 
 interface ShoppingItemRepository {
     fun fetchShoppingItems(shoppingItemListId: String): Task<List<ShoppingItem>>

@@ -1,4 +1,4 @@
-package com.viniciusrodriguesaro.carry.shoppingitem.ui
+package com.viniciusrodriguesaro.carry.shoppingitem.ui.interfaces
 
 import com.google.android.gms.tasks.Task
 
