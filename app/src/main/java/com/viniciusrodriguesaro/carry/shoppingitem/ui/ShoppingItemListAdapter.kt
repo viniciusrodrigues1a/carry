@@ -9,7 +9,7 @@ import androidx.navigation.NavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.viniciusrodriguesaro.carry.databinding.ShoppingItemBinding
-import com.viniciusrodriguesaro.carry.shoppingitem.utils.measurementTypeToLocalizedString
+import com.viniciusrodriguesaro.carry.shoppingitem.utils.MeasurementTypeConverter
 
 class ShoppingItemListAdapter(
     private val context: Context,
@@ -17,6 +17,7 @@ class ShoppingItemListAdapter(
     private val viewModel: ShoppingItemViewModel
 ) : RecyclerView.Adapter<ShoppingItemListAdapter.ViewHolder>() {
     private val asyncListDiffer: AsyncListDiffer<ShoppingItem> = AsyncListDiffer(this, DiffCallback)
+    private val measurementTypeConverter = MeasurementTypeConverter(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -53,7 +54,7 @@ class ShoppingItemListAdapter(
                     item.name,
                     item.description,
                     item.amount ?: -1,
-                    measurementTypeToLocalizedString(context, item.unitOfMeasurement),
+                    measurementTypeConverter.measurementTypeToLocalizedString(item.unitOfMeasurement),
                     item.price?.toFloat() ?: -1F
                 )
             binding.shoppingItemConstraintLayout.setOnClickListener { _ ->
@@ -81,7 +82,7 @@ class ShoppingItemListAdapter(
 
             if (item.amount != null && item.unitOfMeasurement != null) {
                 val localizedUnitOfMeasurement =
-                    measurementTypeToLocalizedString(context, item.unitOfMeasurement)
+                    measurementTypeConverter.measurementTypeToLocalizedString(item.unitOfMeasurement)
                 binding.shoppingItemUnitTextview.text = "${item.amount} $localizedUnitOfMeasurement"
                 binding.shoppingItemUnitTextview.visibility = View.VISIBLE
             }
