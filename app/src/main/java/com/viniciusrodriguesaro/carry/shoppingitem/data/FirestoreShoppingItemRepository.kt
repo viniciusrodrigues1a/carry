@@ -148,7 +148,7 @@ object FirestoreShoppingItemRepository : ShoppingItemRepository {
             "description" to shoppingItemInput.newDescription,
             "price" to shoppingItemInput.newPrice,
             "amount" to shoppingItemInput.newAmount,
-            "unit_of_measurement" to shoppingItemInput.newUnitOfMeasurentString,
+            "unit_of_measurement" to shoppingItemInput.newUnitOfMeasurementString,
         )
 
         docRef.update(updatedData).addOnSuccessListener {

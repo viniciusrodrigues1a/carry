@@ -6,5 +6,5 @@ data class UpdateShoppingItemInput(
     var newDescription: String?,
     var newPrice: Int?,
     var newAmount: Int?,
-    var newUnitOfMeasurentString: String?
+    var newUnitOfMeasurementString: String?
 )

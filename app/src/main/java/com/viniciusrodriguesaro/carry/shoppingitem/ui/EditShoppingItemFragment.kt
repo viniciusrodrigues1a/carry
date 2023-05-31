@@ -114,7 +114,7 @@ class EditShoppingItemFragment : Fragment() {
                 newDescription = description,
                 newPrice = price,
                 newAmount = amount,
-                newUnitOfMeasurentString = unit,
+                newUnitOfMeasurementString = unit,
             )
         )
     }
