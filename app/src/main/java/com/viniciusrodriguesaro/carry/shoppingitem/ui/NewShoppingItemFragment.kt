@@ -26,8 +26,6 @@ class NewShoppingItemFragment : Fragment() {
         ShoppingItemViewModel.Factory(FirestoreShoppingItemRepository)
     }
 
-    private var previousText = ""
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -62,6 +60,8 @@ class NewShoppingItemFragment : Fragment() {
 
     private fun addPriceFormatterMaskToPriceInput() {
         val priceTextWatcher = object : TextWatcher {
+            private var previousText = ""
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
