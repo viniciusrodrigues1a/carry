@@ -94,7 +94,7 @@ class EditShoppingItemFragment : Fragment() {
     private fun updateShoppingItem() {
         val name = binding.nameEditText.text.toString()
         val description = binding.descriptionEditText.text.toString()
-        val price = binding.priceEditText.text.toString().toIntOrNull()
+        val price = priceFormatter.parse(binding.priceEditText.text.toString())
 
         val unitText = binding.unitAutoCompleteTextView.text.toString()
         val amountText = binding.amountEditText.text.toString()
