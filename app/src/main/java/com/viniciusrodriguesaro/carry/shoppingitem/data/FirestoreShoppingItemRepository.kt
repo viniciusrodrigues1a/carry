@@ -47,7 +47,8 @@ object FirestoreShoppingItemRepository : ShoppingItemRepository {
                             (it["amount"] as Long?)?.toInt(),
                             MeasurementType.StringMeasurement(
                                 it["unit_of_measurement"] as String? ?: ""
-                            )
+                            ),
+                            it["created_at"] as Long
                         )
                     }
 
@@ -114,7 +115,8 @@ object FirestoreShoppingItemRepository : ShoppingItemRepository {
             "description" to shoppingItemInput.description,
             "price" to shoppingItemInput.price,
             "amount" to shoppingItemInput.amount,
-            "unit_of_measurement" to shoppingItemInput.unitOfMeasurementString
+            "unit_of_measurement" to shoppingItemInput.unitOfMeasurementString,
+            "created_at" to shoppingItemInput.createdAt
         )
 
         newDocRef.set(data)

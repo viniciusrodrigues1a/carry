@@ -130,7 +130,8 @@ class NewShoppingItemFragment : Fragment() {
                 description = description,
                 price = price,
                 amount = amount,
-                unitOfMeasurementString = unit
+                unitOfMeasurementString = unit,
+                createdAt = System.currentTimeMillis()
             )
         )
     }

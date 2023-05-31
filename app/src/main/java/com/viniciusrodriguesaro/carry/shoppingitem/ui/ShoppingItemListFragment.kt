@@ -65,6 +65,6 @@ class ShoppingItemListFragment : Fragment() {
     }
 
     private fun bindUiState(uiState: ShoppingItemViewModel.UiState) {
-        adapter.updateShoppingItems(uiState.shoppingItemList.sortedBy { it.isCompleted })
+        adapter.updateShoppingItems(uiState.shoppingItemList.sortedByDescending { it.createdAt }.sortedBy { it.isCompleted })
     }
 }
