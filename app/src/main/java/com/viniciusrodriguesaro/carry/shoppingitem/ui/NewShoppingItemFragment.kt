@@ -16,8 +16,7 @@ import com.viniciusrodriguesaro.carry.databinding.FragmentNewShoppingItemBinding
 import com.viniciusrodriguesaro.carry.shoppingitem.data.FirestoreShoppingItemRepository
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.CreateShoppingItemInput
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.UnitOfMeasurement
-import java.text.NumberFormat
-import java.text.ParseException
+import com.viniciusrodriguesaro.carry.shoppingitem.utils.priceFormatter
 
 class NewShoppingItemFragment : Fragment() {
     private var _binding: FragmentNewShoppingItemBinding? = null
@@ -62,8 +61,6 @@ class NewShoppingItemFragment : Fragment() {
     }
 
     private fun addPriceFormatterMaskToPriceInput() {
-        val formatter = NumberFormat.getCurrencyInstance()
-
         val priceTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -72,9 +69,9 @@ class NewShoppingItemFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 binding.priceEditText.removeTextChangedListener(this)
 
+                /* Check if user is pressing backspace */
                 var isDeletingText: Boolean
 
-                /* Check if user is pressing backspace */
                 if (s.toString().length < previousText.length) {
                     isDeletingText = true
                     binding.priceEditText.setText(previousText);
@@ -83,29 +80,19 @@ class NewShoppingItemFragment : Fragment() {
                     isDeletingText = false
                 }
 
+                /* Parse string to int */
                 var priceInt = s.toString().toIntOrNull()
 
-                /* Parse string to int */
-                try {
-                    if (isDeletingText) {
-                        val parsedString = formatter.parse(previousText)
-                        priceInt =
-                            (parsedString.toDouble() * 100).toInt().toString().dropLast(1).toInt()
-                    } else {
-                        val parsedString = formatter.parse(s.toString())
-                        val last = s?.lastOrNull().toString().toIntOrNull()
-                        priceInt =
-                            ((parsedString.toDouble() * 100).toInt()
-                                .toString() + last).toIntOrNull()
-                    }
-                } catch (e: ParseException) {
-                } catch (e: java.lang.NumberFormatException) {
-                    priceInt = 0
+                if (isDeletingText) {
+                    priceInt = priceFormatter.removeOneDigit(previousText)
+                } else {
+                    val addition = priceFormatter.addOneDigit(s.toString())
+                    priceInt = addition ?: priceInt
                 }
 
                 /* Format int to currency */
                 if (priceInt != null) {
-                    val formatted = formatter.format(priceInt / 100.0)
+                    val formatted = priceFormatter.format(priceInt)
 
                     previousText = formatted
 
@@ -129,18 +116,13 @@ class NewShoppingItemFragment : Fragment() {
     private fun createShoppingItem() {
         val name = binding.nameEditText.text.toString()
         val description = binding.descriptionEditText.text.toString()
-        val price = binding.priceEditText.text.toString().toIntOrNull()
+        val price = priceFormatter.parse(binding.priceEditText.text.toString())
+        val amount = binding.amountEditText.text.toString().toIntOrNull()
 
         val unitText = binding.unitAutoCompleteTextView.text.toString()
-        val amountText = binding.amountEditText.text.toString()
-
-        var amount: Int? = null
-        var unit: String? = null
-
-        if (!unitText.isNullOrEmpty() && !amountText.isNullOrEmpty()) {
-            unit = unitText
-            amount = amountText.toInt()
-        }
+        val defaultUnitText = requireContext().getString(R.string.unit_measurement)
+        val localizedUnitText = if (unitText.isNullOrEmpty()) defaultUnitText else unitText
+        val unit = if (amount != null) localizedUnitText else null
 
         viewModel.createShoppingItem(
             CreateShoppingItemInput(
