@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.viniciusrodriguesaro.carry.databinding.ShoppingItemBinding
 import com.viniciusrodriguesaro.carry.shoppingitem.utils.MeasurementTypeConverter
+import com.viniciusrodriguesaro.carry.shoppingitem.utils.priceFormatter
 
 class ShoppingItemListAdapter(
     private val context: Context,
@@ -55,7 +56,7 @@ class ShoppingItemListAdapter(
                     item.description,
                     item.amount ?: -1,
                     measurementTypeConverter.measurementTypeToLocalizedString(item.unitOfMeasurement),
-                    item.price?.toFloat() ?: -1F
+                    item.price ?: -1
                 )
             binding.shoppingItemConstraintLayout.setOnClickListener { _ ->
                 navController.navigate(
@@ -76,7 +77,7 @@ class ShoppingItemListAdapter(
             binding.shoppingItemNameTextview.text = item.name
 
             if (item.price != null) {
-                binding.shoppingItemPriceTextview.text = item.price.toString()
+                binding.shoppingItemPriceTextview.text = priceFormatter.format(item.price!!)
                 binding.shoppingItemPriceTextview.visibility = View.VISIBLE
             }
 

@@ -14,6 +14,7 @@ import com.viniciusrodriguesaro.carry.databinding.FragmentEditShoppingItemBindin
 import com.viniciusrodriguesaro.carry.shoppingitem.data.FirestoreShoppingItemRepository
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.UnitOfMeasurement
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.UpdateShoppingItemInput
+import com.viniciusrodriguesaro.carry.shoppingitem.utils.priceFormatter
 
 class EditShoppingItemFragment : Fragment() {
     private var _binding: FragmentEditShoppingItemBinding? = null
@@ -58,6 +59,7 @@ class EditShoppingItemFragment : Fragment() {
     private fun bindArgs() {
         binding.nameEditText.setText(args.name)
         binding.descriptionEditText.setText(args.description)
+
         if (args.amount != -1) {
             binding.amountEditText.setText(args.amount.toString())
         }
@@ -67,7 +69,9 @@ class EditShoppingItemFragment : Fragment() {
             adapter.filter.filter(null)
         }
 
-        binding.priceEditText.setText(args.price.toString())
+        if (args.price != -1) {
+            binding.priceEditText.setText(priceFormatter.format(args.price))
+        }
     }
 
     private fun bindButtons() {
