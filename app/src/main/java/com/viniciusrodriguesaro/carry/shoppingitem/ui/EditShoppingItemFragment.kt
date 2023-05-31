@@ -1,6 +1,8 @@
 package com.viniciusrodriguesaro.carry.shoppingitem.ui
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -54,6 +56,7 @@ class EditShoppingItemFragment : Fragment() {
 
         bindArgs()
         bindButtons()
+        addPriceFormatterMaskToPriceInput()
     }
 
     private fun bindArgs() {
@@ -119,5 +122,54 @@ class EditShoppingItemFragment : Fragment() {
     private fun handleOnDeletePress() {
         viewModel.deleteShoppingItem(args.id)
         findNavController().popBackStack()
+    }
+
+    private fun addPriceFormatterMaskToPriceInput() {
+        val priceTextWatcher = object : TextWatcher {
+            private var previousText = binding.priceEditText.text.toString()
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                binding.priceEditText.removeTextChangedListener(this)
+
+                /* Check if user is pressing backspace */
+                var isDeletingText: Boolean
+
+                if (s.toString().length < previousText.length) {
+                    isDeletingText = true
+                    binding.priceEditText.setText(previousText);
+                    binding.priceEditText.setSelection(previousText.length);
+                } else {
+                    isDeletingText = false
+                }
+
+                /* Parse string to int */
+                var priceInt = s.toString().toIntOrNull()
+
+                if (isDeletingText) {
+                    priceInt = priceFormatter.removeOneDigit(previousText)
+                } else {
+                    val addition = priceFormatter.addOneDigit(s.toString())
+                    priceInt = addition ?: priceInt
+                }
+
+                /* Format int to currency */
+                if (priceInt != null) {
+                    val formatted = priceFormatter.format(priceInt)
+
+                    previousText = formatted
+
+                    binding.priceEditText.setText(formatted)
+                    binding.priceEditText.setSelection(formatted.length)
+                }
+
+                binding.priceEditText.addTextChangedListener(this)
+            }
+        }
+
+        binding.priceEditText.addTextChangedListener(priceTextWatcher)
     }
 }
