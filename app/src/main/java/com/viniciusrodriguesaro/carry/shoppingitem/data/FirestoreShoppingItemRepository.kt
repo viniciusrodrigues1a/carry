@@ -20,13 +20,6 @@ object FirestoreShoppingItemRepository : ShoppingItemRepository {
 
     private val firestore: FirebaseFirestore = Firebase.firestore
 
-    init {
-        firestore.useEmulator("10.0.2.2", 8080)
-        firestore.firestoreSettings = firestoreSettings {
-            isPersistenceEnabled = false
-        }
-    }
-
     override fun fetchShoppingItems(shoppingItemListId: String): Task<List<ShoppingItem>> {
         val taskCompletionSource = TaskCompletionSource<List<ShoppingItem>>()
 
