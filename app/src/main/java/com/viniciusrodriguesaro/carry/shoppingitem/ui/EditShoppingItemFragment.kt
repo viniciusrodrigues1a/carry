@@ -98,17 +98,12 @@ class EditShoppingItemFragment : Fragment() {
         val name = binding.nameEditText.text.toString()
         val description = binding.descriptionEditText.text.toString()
         val price = priceFormatter.parse(binding.priceEditText.text.toString())
+        val amount = binding.amountEditText.text.toString().toIntOrNull()
 
         val unitText = binding.unitAutoCompleteTextView.text.toString()
-        val amountText = binding.amountEditText.text.toString()
-
-        var unit: String? = null
-        var amount: Int? = null
-
-        if (!unitText.isNullOrEmpty() && !amountText.isNullOrEmpty()) {
-            unit = unitText
-            amount = amountText.toInt()
-        }
+        val defaultUnitText = requireContext().getString(R.string.unit_measurement)
+        val localizedUnitText = if (unitText.isNullOrEmpty()) defaultUnitText else unitText
+        val unit = if (amount != null) localizedUnitText else null
 
         viewModel.updateShoppingItem(
             UpdateShoppingItemInput(
