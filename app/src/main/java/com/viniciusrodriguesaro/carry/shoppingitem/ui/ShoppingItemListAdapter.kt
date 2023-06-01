@@ -76,7 +76,7 @@ class ShoppingItemListAdapter(
         private fun bindInputs(item: ShoppingItem) {
             binding.shoppingItemNameTextview.text = item.name
 
-            if (item.price != null) {
+            if (item.price != null && item.price!! > 0) {
                 binding.shoppingItemPriceTextview.text = priceFormatter.format(item.price!!)
                 binding.shoppingItemPriceTextview.visibility = View.VISIBLE
             }
