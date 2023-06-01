@@ -139,15 +139,11 @@ class EditShoppingItemFragment : Fragment() {
                 binding.priceEditText.removeTextChangedListener(this)
 
                 /* Check if user is pressing backspace */
-                var isDeletingText: Boolean
+                val isDeletingText = s.toString().length < previousText.length
 
-                if (s.toString().length < previousText.length) {
-                    isDeletingText = true
-                    binding.priceEditText.setText(previousText);
-                    binding.priceEditText.setSelection(previousText.length);
-                } else {
-                    isDeletingText = false
-                }
+                /* Control input */
+                binding.priceEditText.setText(previousText);
+                binding.priceEditText.setSelection(previousText.length);
 
                 /* Parse string to int */
                 var priceInt = s.toString().toIntOrNull()
