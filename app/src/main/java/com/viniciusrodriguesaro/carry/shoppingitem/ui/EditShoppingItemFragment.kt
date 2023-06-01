@@ -3,6 +3,7 @@ package com.viniciusrodriguesaro.carry.shoppingitem.ui
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -82,7 +83,9 @@ class EditShoppingItemFragment : Fragment() {
         binding.submitButton.setOnClickListener { _ -> handleOnUpdatePress() }
 
         binding.deleteButton.isEnabled = true
-        binding.deleteButton.setBackgroundColor(resources.getColor(R.color.red))
+        val typedValue = TypedValue()
+        context?.theme?.resolveAttribute(R.attr.cancelButtonColor, typedValue, true)
+        binding.deleteButton.setBackgroundColor(typedValue.data)
         binding.deleteButton.setOnClickListener { _ -> handleOnDeletePress() }
     }
 
