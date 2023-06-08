@@ -24,6 +24,15 @@
     <item name="cancelButtonColor">@color/red</item>
   </style>
 
+  <style name="Theme.Carry.FloatingActionButton" parent="@style/Widget.MaterialComponents.FloatingActionButton">
+    <item name="android:backgroundTint">@color/teal_700</item>
+    <item name="tint">@color/white</item>
+  </style>
+
+  <style name="Theme.Carry.OutlinedBox" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <item name="android:textColorHint">@color/light_input_hint</item>
+  </style>
+
   <style name="Theme.Carry.Toolbar">
     <item name="colorControlNormal">@color/white</item>
   </style>

@@ -11,14 +11,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
-    android:paddingVertical="12dp"
     android:contentDescription="@string/content_description_shopping_item_list"
+    android:paddingVertical="12dp"
     app:layoutManager="LinearLayoutManager"
     tools:context=".shoppingitem.ui.ShoppingItemListFragment"
     tools:listitem="@layout/shopping_item" />
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/fab"
+    style="@style/Theme.Carry.FloatingActionButton"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom|right"
