@@ -1,6 +1,7 @@
 package com.viniciusrodriguesaro.carry.shoppingitem.dto
 
 import android.content.Context
+import android.view.accessibility.AccessibilityManager
 import com.viniciusrodriguesaro.carry.shoppingitem.utils.MeasurementTypeConverter
 
 sealed class MeasurementType {
@@ -21,13 +22,21 @@ enum class UnitOfMeasurement {
 
             return UnitOfMeasurement.values()
                 .map {
-                    measurementTypeConverter.measurementTypeToLocalizedString(
-                        MeasurementType.EnumMeasurement(
-                            it
-                        )
-                    )
+                    val m = MeasurementType.EnumMeasurement(it)
+
+                    if (isScreenReaderEnabled(context)) {
+                        measurementTypeConverter.measurementTypeToAccessibleLocalizedString(m)
+                    } else {
+                        measurementTypeConverter.measurementTypeToLocalizedString(m)
+                    }
                 }
                 .toTypedArray()
+        }
+
+        private fun isScreenReaderEnabled(context: Context): Boolean {
+            val accessibilityManager =
+                context.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+            return accessibilityManager.isEnabled && accessibilityManager.isTouchExplorationEnabled
         }
     }
 }

@@ -1,14 +1,22 @@
 package com.viniciusrodriguesaro.carry.shoppingitem.ui
 
 import android.content.Context
+import android.os.Build
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.AccessibilityDelegate
 import android.view.ViewGroup
+import android.view.accessibility.AccessibilityEvent
+import android.view.accessibility.AccessibilityNodeInfo
+import androidx.annotation.RequiresApi
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import com.viniciusrodriguesaro.carry.R
 import com.viniciusrodriguesaro.carry.databinding.ShoppingItemBinding
+import com.viniciusrodriguesaro.carry.shoppingitem.dto.MeasurementType
 import com.viniciusrodriguesaro.carry.shoppingitem.utils.MeasurementTypeConverter
 import com.viniciusrodriguesaro.carry.shoppingitem.utils.priceFormatter
 
@@ -31,7 +39,7 @@ class ShoppingItemListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(asyncListDiffer.currentList[position])
+        holder.bind(asyncListDiffer.currentList[position], position)
     }
 
     override fun getItemCount(): Int = asyncListDiffer.currentList.size
@@ -42,10 +50,11 @@ class ShoppingItemListAdapter(
 
     inner class ViewHolder(private val binding: ShoppingItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ShoppingItem) {
+        fun bind(item: ShoppingItem, position: Int) {
             bindShoppingItemCheckbox(item)
             bindShoppingItemConstraintLayout(item)
             bindInputs(item)
+            makeViewsAccessible(item, position)
         }
 
         private fun bindShoppingItemConstraintLayout(item: ShoppingItem) {
@@ -87,6 +96,33 @@ class ShoppingItemListAdapter(
                 binding.shoppingItemUnitTextview.text = "${item.amount} $localizedUnitOfMeasurement"
                 binding.shoppingItemUnitTextview.visibility = View.VISIBLE
             }
+        }
+
+        private fun makeViewsAccessible(item: ShoppingItem, position: Int) {
+            val contentDescription = context.getString(R.string.content_description_shopping_item)
+                .format(position + 1, item.name)
+            binding.shoppingItemConstraintLayout.contentDescription = contentDescription
+
+            val notSelectedText =
+                context.getString(R.string.content_description_shopping_item_checkbox_not_selected)
+                    .format(position + 1, item.name);
+            val selectedText =
+                context.getString(R.string.content_description_shopping_item_checkbox_selected)
+                    .format(position + 1, item.name);
+            val accessibilityText = if (item.isCompleted) selectedText else notSelectedText
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                binding.shoppingItemCheckbox.stateDescription = accessibilityText
+            } else {
+                binding.shoppingItemCheckbox.contentDescription = accessibilityText
+            }
+
+            if (item.amount != null && item.unitOfMeasurement != null) {
+                val accessibleString =
+                    measurementTypeConverter.measurementTypeToAccessibleLocalizedString(item.unitOfMeasurement)
+                binding.shoppingItemUnitTextview.contentDescription = "${item.amount} $accessibleString"
+            }
+
         }
     }
 

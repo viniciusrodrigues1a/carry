@@ -1,6 +1,5 @@
 <resources>
   <string name="app_name">Carry</string>
-  <string name="logo_content_description">App\'s logo</string>
 
   // Auth strings
   <string name="auth_email_hint">E-mail</string>
@@ -35,6 +34,12 @@
   <string name="milligram_measurement">mg</string>
   <string name="gram_measurement">g</string>
 
+  <string name="content_description_unit_measurement">unidade</string>
+  <string name="content_description_liter_measurement">litro</string>
+  <string name="content_description_kilogram_measurement">kilograma</string>
+  <string name="content_description_milligram_measurement">milligrama</string>
+  <string name="content_description_gram_measurement">grama</string>
+
   // Nav graph labels
   <string name="label_shopping_item_list">Lista de compras</string>
   <string name="label_signup">Cadastro</string>
@@ -45,10 +50,19 @@
   <string name="shopping_item_name_hint">Digite o nome do item</string>
   <string name="shopping_item_description_hint">Descriçao opcional do item</string>
   <string name="shopping_item_amount_hint">Quantidade</string>
-  <string name="shopping_item_unit_hint">Unidade</string>
+  <string name="shopping_item_unit_of_measurement_hint">Unidade de medida</string>
   <string name="shopping_item_price_hint">Preço</string>
   <string name="label_edit_shopping_item">Editar item</string>
   <string name="new_shopping_item_button_label">Criar item</string>
   <string name="edit_shopping_item_button_label">Editar item</string>
   <string name="delete_shopping_item_button_label">Deletar item</string>
+
+  // Content description
+  <string name="content_description_new_item">Novo item</string>
+  <string name="content_description_shopping_item_list">Itens de compra</string>
+  <string name="content_description_shopping_item">Item %1$d - %2$s</string>
+  <string name="content_description_shopping_item_with_unit">Item %1$d - %2$s, %3$d unidades</string>
+  <string name="content_description_shopping_item_checkbox_not_selected">Marcar item %1$d - %2$s como concluido</string>
+  <string name="content_description_shopping_item_checkbox_selected">Marcar item %1$d - %2$s como não concluído</string>
+
 </resources>

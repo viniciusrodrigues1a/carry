@@ -17,6 +17,7 @@ import com.viniciusrodriguesaro.carry.databinding.FragmentEditShoppingItemBindin
 import com.viniciusrodriguesaro.carry.shoppingitem.data.FirestoreShoppingItemRepository
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.UnitOfMeasurement
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.UpdateShoppingItemInput
+import com.viniciusrodriguesaro.carry.shoppingitem.utils.MeasurementTypeConverter
 import com.viniciusrodriguesaro.carry.shoppingitem.utils.priceFormatter
 
 class EditShoppingItemFragment : Fragment() {
@@ -26,7 +27,7 @@ class EditShoppingItemFragment : Fragment() {
     private lateinit var adapter: ArrayAdapter<String>
 
     private val viewModel: ShoppingItemViewModel by activityViewModels {
-        ShoppingItemViewModel.Factory(FirestoreShoppingItemRepository)
+        ShoppingItemViewModel.Factory(FirestoreShoppingItemRepository(MeasurementTypeConverter(requireContext())))
     }
 
     private val args: EditShoppingItemFragmentArgs by navArgs()
@@ -45,7 +46,7 @@ class EditShoppingItemFragment : Fragment() {
         adapter = ArrayAdapter(
             context,
             R.layout.shopping_item_dropdown_item,
-            UnitOfMeasurement.getLocalizedValues(context)
+            UnitOfMeasurement.getLocalizedValues(context),
         )
         binding.unitAutoCompleteTextView.setAdapter(adapter)
 
@@ -58,6 +59,7 @@ class EditShoppingItemFragment : Fragment() {
         bindArgs()
         bindButtons()
         addPriceFormatterMaskToPriceInput()
+        makeUnitOfMeasurementInputAccessible()
     }
 
     private fun bindArgs() {
@@ -79,8 +81,8 @@ class EditShoppingItemFragment : Fragment() {
     }
 
     private fun bindButtons() {
-        binding.submitButton.isEnabled = true
-        binding.submitButton.setOnClickListener { _ -> handleOnUpdatePress() }
+        binding.editButton.isEnabled = true
+        binding.editButton.setOnClickListener { _ -> handleOnUpdatePress() }
 
         binding.deleteButton.isEnabled = true
         val typedValue = TypedValue()
@@ -166,4 +168,9 @@ class EditShoppingItemFragment : Fragment() {
 
         binding.priceEditText.addTextChangedListener(priceTextWatcher)
     }
+
+    private fun makeUnitOfMeasurementInputAccessible() {
+        //binding.unitAutoCompleteTextView.
+    }
+
 }

@@ -12,8 +12,10 @@ import com.viniciusrodriguesaro.carry.shoppingitem.dto.MeasurementType
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.UpdateShoppingItemInput
 import com.viniciusrodriguesaro.carry.shoppingitem.ui.ShoppingItem
 import com.viniciusrodriguesaro.carry.shoppingitem.ui.interfaces.ShoppingItemRepository
+import com.viniciusrodriguesaro.carry.shoppingitem.utils.MeasurementTypeConverter
 
-object FirestoreShoppingItemRepository : ShoppingItemRepository {
+class FirestoreShoppingItemRepository(private val measurementTypeConverter: MeasurementTypeConverter) :
+    ShoppingItemRepository {
     private var SHOPPING_ITEM_LIST_COLLECTION_ID = "ShoppingItemList"
     private var SHOPPING_ITEM_COLLECTION_ID = "ShoppingItem"
     private var TAG = "FIRESTORE_SHOPPING_ITEM_REPOSITORY"
@@ -30,6 +32,13 @@ object FirestoreShoppingItemRepository : ShoppingItemRepository {
         itemListCol.document(shoppingItemListId).collection(SHOPPING_ITEM_COLLECTION_ID).get()
             .addOnSuccessListener { result ->
                 for (document in result) {
+                    val rawUnitOfMeasurement = document.data["unit_of_measurement"] as String?
+                    var parsedUnitOfMeasurement: MeasurementType? = null
+                    if (rawUnitOfMeasurement != null) {
+                        parsedUnitOfMeasurement =
+                            measurementTypeConverter.stringToMeasurementType(rawUnitOfMeasurement)
+                    }
+
                     val shoppingItem = document.data?.let {
                         ShoppingItem(
                             document.id,
@@ -38,9 +47,7 @@ object FirestoreShoppingItemRepository : ShoppingItemRepository {
                             it["description"] as String,
                             (it["price"] as Long?)?.toInt(),
                             (it["amount"] as Long?)?.toInt(),
-                            MeasurementType.StringMeasurement(
-                                it["unit_of_measurement"] as String? ?: ""
-                            ),
+                            parsedUnitOfMeasurement,
                             it["created_at"] as Long
                         )
                     }

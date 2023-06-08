@@ -12,6 +12,7 @@
     android:layout_height="match_parent"
     android:clipToPadding="false"
     android:paddingVertical="12dp"
+    android:contentDescription="@string/content_description_shopping_item_list"
     app:layoutManager="LinearLayoutManager"
     tools:context=".shoppingitem.ui.ShoppingItemListFragment"
     tools:listitem="@layout/shopping_item" />
@@ -22,5 +23,6 @@
     android:layout_height="wrap_content"
     android:layout_gravity="bottom|right"
     android:layout_margin="16dp"
+    android:contentDescription="@string/content_description_new_item"
     app:srcCompat="@drawable/ic_add" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

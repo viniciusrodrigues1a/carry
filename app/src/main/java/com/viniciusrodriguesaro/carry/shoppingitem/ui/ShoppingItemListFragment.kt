@@ -12,6 +12,7 @@ import com.viniciusrodriguesaro.carry.R
 import com.viniciusrodriguesaro.carry.databinding.FragmentShoppingItemListBinding
 import com.viniciusrodriguesaro.carry.shoppingitem.data.FirestoreShoppingItemListRepository
 import com.viniciusrodriguesaro.carry.shoppingitem.data.FirestoreShoppingItemRepository
+import com.viniciusrodriguesaro.carry.shoppingitem.utils.MeasurementTypeConverter
 
 class ShoppingItemListFragment : Fragment() {
     private lateinit var adapter: ShoppingItemListAdapter
@@ -20,7 +21,7 @@ class ShoppingItemListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val shoppingItemViewModel: ShoppingItemViewModel by activityViewModels {
-        ShoppingItemViewModel.Factory(FirestoreShoppingItemRepository)
+        ShoppingItemViewModel.Factory(FirestoreShoppingItemRepository(MeasurementTypeConverter(requireContext())))
     }
     private val shoppingItemListViewModel: ShoppingItemListViewModel by activityViewModels {
         ShoppingItemListViewModel.Factory(FirestoreShoppingItemListRepository)

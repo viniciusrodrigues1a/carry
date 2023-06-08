@@ -72,7 +72,7 @@
       android:id="@+id/unit_auto_complete_text_view"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:hint="@string/unit_measurement" />
+      android:hint="@string/shopping_item_unit_of_measurement_hint" />
   </com.google.android.material.textfield.TextInputLayout>
 
 

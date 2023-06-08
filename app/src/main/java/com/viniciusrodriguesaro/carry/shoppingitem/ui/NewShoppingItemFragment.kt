@@ -1,5 +1,6 @@
 package com.viniciusrodriguesaro.carry.shoppingitem.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.accessibility.AccessibilityManager
 import android.widget.ArrayAdapter
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
@@ -16,6 +18,7 @@ import com.viniciusrodriguesaro.carry.databinding.FragmentNewShoppingItemBinding
 import com.viniciusrodriguesaro.carry.shoppingitem.data.FirestoreShoppingItemRepository
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.CreateShoppingItemInput
 import com.viniciusrodriguesaro.carry.shoppingitem.dto.UnitOfMeasurement
+import com.viniciusrodriguesaro.carry.shoppingitem.utils.MeasurementTypeConverter
 import com.viniciusrodriguesaro.carry.shoppingitem.utils.priceFormatter
 
 class NewShoppingItemFragment : Fragment() {
@@ -23,7 +26,7 @@ class NewShoppingItemFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: ShoppingItemViewModel by activityViewModels {
-        ShoppingItemViewModel.Factory(FirestoreShoppingItemRepository)
+        ShoppingItemViewModel.Factory(FirestoreShoppingItemRepository(MeasurementTypeConverter(requireContext())))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,11 +40,11 @@ class NewShoppingItemFragment : Fragment() {
         _binding = FragmentNewShoppingItemBinding.inflate(inflater, container, false)
 
         val context = requireContext()
-        val adapter = ArrayAdapter(
+        var adapter = ArrayAdapter(
             context,
             R.layout.shopping_item_dropdown_item,
-            UnitOfMeasurement.getLocalizedValues(context)
-        );
+            UnitOfMeasurement.getLocalizedValues(context),
+        )
         binding.unitAutoCompleteTextView.setAdapter(adapter)
 
         return binding.root;
@@ -116,7 +119,7 @@ class NewShoppingItemFragment : Fragment() {
         val amount = binding.amountEditText.text.toString().toIntOrNull()
 
         val unitText = binding.unitAutoCompleteTextView.text.toString()
-        val defaultUnitText = requireContext().getString(R.string.unit_measurement)
+        val defaultUnitText = getDefaultUnitText()
         val localizedUnitText = if (unitText.isNullOrEmpty()) defaultUnitText else unitText
         val unit = if (amount != null) localizedUnitText else null
 
@@ -130,5 +133,19 @@ class NewShoppingItemFragment : Fragment() {
                 createdAt = System.currentTimeMillis()
             )
         )
+    }
+
+    private fun getDefaultUnitText(): String {
+        val context = requireContext()
+        val accessibilityManager =
+            context.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+        val isScreenReaderEnabled = accessibilityManager.isEnabled && accessibilityManager.isTouchExplorationEnabled
+
+        if (isScreenReaderEnabled) {
+            return context.getString(R.string.content_description_unit_measurement)
+        } else {
+            return context.getString(R.string.unit_measurement)
+        }
+
     }
 }
